@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+div.dropdown-menu input{
+	border: 2px inset white;
+	border-radius: 10px;
+	display: inline;
+}
+
+div.dropdown-menu label{
+	display: inline;
+	text-align: center;
+}
+
+div.dropdown-menu input:focus{
+	outline: none;
+	border-color: black;
+}
+
+div.dropdown-menu input[type=submit]{
+	border: 1.5px solid white;
+	border-radius: 10px;
+	padding: 2px 0 2px 0;
+	background-color: white;
+    height: 35%;
+    width: 35%;
+    color: white;
+    background-color: #252525;
+}
+
+div.dropdown-menu input[type=submit]:active{
+	outline: none;
+}
+
+div.dropdown-menu input[type=submit]:hover{
+	color: red;
+	cursor: pointer;
+}
+
+div#signUpModal{
+	color: black !important;
+}
+
+div#resetModal{
+	color: black;
+}
+
+div#signUpModal label{
+	color: black;
+  	position: relative;
+  	left: 1px;
+  	top: -30px;
+  	font-size: 100%;
+  	transition: 0.3s;
+}
+
+.bg-opacity{
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+div#signUpModal input:focus + label,
+div#signUpModal input:valid + label {
+  top: -55px;
+  color: red;
+  font-size: 85%;
+}
+
+div#signUpModal input:not([type=submit]){
+	border: none;
+	width: 100%;
+	padding: 2px 0 2px 0;
+	border-bottom: 2px solid black;
+	display:block;
+	background-color: rgba(255, 255, 255, 0);
+	
+}
+div#signUpModal input:not([type=submit]):focus{
+	outline: none;
+	border-bottom: 2px solid red;
+}
+
+span#errorSign, span#errorLog{
+	display: none;
+	color: red;
+	font-size: 100%;
+}
+
+span.error{
+	font-size: 70%;
+	color: red;
+	text-align: left !important;
+	padding-bottom: 5px;
+}
+
+.navbar-brand{
+	position: relative;
+	cursor: default;
+}
+
+
+span#eng{
+	display: block;
+    position: absolute;
+    z-index:100;
+    transition: opacity 3s;
+}
+
+span#jap{
+	font-size: 78%;
+	opacity: 0;
+}
+
+.navbar-brand:hover span#eng{
+	opacity: 0;
+	transition: all 2s;
+}
+
+.navbar-brand:hover span#jap{
+	opacity: 1;
+	transition: all 2s;
+}
+
+@media only screen and (max-width: 992px) {
+	div.dropdown-menu input[type=submit]{
+	    height: 15%;
+	    width: 15%;
+	}
+}

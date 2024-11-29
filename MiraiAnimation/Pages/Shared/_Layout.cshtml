@@ -7,28 +7,190 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MiraiAnimation.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="/css/navbar.css" type="text/css" asp-append-version="true"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">MiraiAnimation</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="navbar-brand">
+				<span id="eng">Mirai Animation</span>
+				<span id="jap" lang="ja">未来 アニメーション</span>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item mx-auto">
+						<a class="nav-link" href="/">Home</a>
+					</li>
+					<li class="nav-item mx-auto">
+						<a class="nav-link" href="/animation">Animazioni</a>
+					</li>
+					<li class="nav-item mx-auto">
+						<a class="nav-link" href="/staff">Personale</a>
+					</li>
+					<li class="nav-item mx-auto">
+						<a class="nav-link" href="/shop">Negozio</a>
+					</li>
+				</ul>
+
+				<ul class="navbar-nav ml-auto text-center">
+					@if (true) {	<!-- da modificare in futuro-->
+						<li class="nav-item dropdown align-middle">
+							<a class="nav-link dropdown-toggle" href="#" id="logDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Accedi
+							</a>
+							<div class="dropdown-menu py-2 px-3 dropdown-menu-right" id="dropdownLog" aria-labelledby="logDropdown">
+								<form name="logForm" class="px-auto ml-auto text-center" action="/login" method="post" onsubmit="return checkLogForm()">
+									<input type="hidden" name="_csrf" value="<%= locals.csrf %>">
+									<div class="form-group">
+										<label for="userLog">Username</label>
+										<input type="text" id="userLog" name="username" placeholder="Username" required> <br />
+										<span class="error" id="errorLogUser"></span>
+									</div>
+									<div class="form-group">
+										<label for="passLog">Password</label>
+										<input type="password" id="passLog" name="password" placeholder="Password" required> <br />
+										<span class="error" id="errorLogPass"></span>
+									</div>
+									<input type="submit" value="Entra"> <br />
+								</form>
+								<span id="errorLog"></span><br />
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" data-toggle="modal" data-target="#signUpModal">Registrati</a>
+						</li>
+					}
+					else
+					{
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Sezione Utente
+							</a>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="/carrello">Carrello</a>
+								<a class="dropdown-item" href="/ordini">Ordini effettuati</a>
+								<!--  <div class="dropdown-divider"></div>-->
+								<a class="dropdown-item" href="/account">Account</a>
+								<a class="dropdown-item" data-toggle="modal" data-target="#resetModal">Reimposta password</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="logout">Log out</a>
+							</div>
+						</li>
+					
+						@if (false) { <!-- da modificare in futuro-->
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Sezione Admin
+								</a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
+									<a class="dropdown-item" href="/pannelloAnimazioni">Pannello Animazioni</a>
+									<a class="dropdown-item" href="/pannelloStaff">Pannello Personale</a>
+									<!--  <div class="dropdown-divider"></div>-->
+									<a class="dropdown-item" href="/pannelloBD">Pannello Blu-ray</a>
+									<a class="dropdown-item" href="/pannelloUtenti">Pannello Utenti</a>
+								</div>
+							</li>
+						} 
+					}
+				</ul>
+
+			</div>
+		</nav>
+
+		<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content bg-opacity color">
+					<div class="modal-header">
+						<h5 class="modal-title" id="signUpLabel">Registrati</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form name="signForm" action="/signup" method="post" onsubmit="return checkSignForm()">
+						<input type="hidden" name="_csrf" value="<%= locals.csrf %>">
+						<div class="modal-body mt-3">
+							<div class="form-group">
+								<input type="text" id="email" name="email" required>
+								<label for="user">E-mail</label><br />
+								<span class="error" id="errorSignEmail"></span>
+							</div>
+							<div class="form-group">
+								<input type="text" id="user" name="user" required>
+								<label for="user">Username</label><br />
+								<span class="error" id="errorSignUser"></span>
+							</div>
+							<div class="form-group">
+								<input type="password" id="password" name="password" required>
+								<label for="password">Password</label><br />
+								<span class="error" id="errorSignPass"></span>
+							</div>
+							<div class="form-group">
+								<input type="text" id="name" name="nome" required>
+								<label for="name">Nome</label><br />
+								<span class="error" id="errorSignName"></span>
+							</div>
+							<div class="form-group">
+								<input type="text" id="surname" name="cognome" required>
+								<label for="surname">Cognome</label><br />
+								<span class="error" id="errorSignSurname"></span>
+							</div>
+							<div class="form-group">
+								<input type="text" id="birthDate" name="dataNascita" required>
+								<label for="birthDate">Data di Nascita</label><br />
+								<span class="error" id="errorSignBirth"></span>
+							</div>
+							<div class="form-group">
+								<h6 style="margin-bottom: 15px">Indirizzo</h6>
+								<input type="text" id="city" name="city" required>
+								<label for="city">Città</label><br />
+								<input type="text" id="via" name="via" required>
+								<label for="via">Via</label><br />
+								<input type="text" id="cap" name="cap" required>
+								<label for="cap">CAP</label><br />
+								<span class="error" id="errorSignAddress"></span>
+							</div>
+							<span id="errorSign"></span><br />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<input type="submit" value="Registrati" class="btn btn-secondary">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		@if(false) { <!-- da modificare in futuro-->
+			<div>
+				<span>Account non verificato. Visiona la tua casella mail</span>
+			</div>
+		}
+
+		<!-- modal reset password-->
+		<div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="resetModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="resetModalLabel">Reimposta password</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Sicuro di voler reimpostare la password?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+						<a href="/reset" class="btn btn-primary">Si</a>
+					</div>
+				</div>
+			</div>
+		</div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -45,7 +207,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="/js/navbar.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
