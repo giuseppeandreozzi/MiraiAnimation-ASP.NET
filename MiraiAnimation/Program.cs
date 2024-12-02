@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using MiraiAnimation.Model;
+using MiraiAnimation.Model.Services;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<MyDbContext>(options => {
     options.UseMongoDB(mongoClient, builder.Configuration["DB_NAME"]);
 });
+builder.Services.AddScoped<IDbService<Animation>, AnimationService>();
 
 var app = builder.Build();
 

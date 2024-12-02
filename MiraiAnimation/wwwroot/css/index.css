@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 100%;
+	color: #EEEEEE;
+}
+
+
+div.parallax{
+	background-image: url(../img/bgParallax.png);
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 100%;
+}
+
+div.parallax img{
+	position: relative;
+	top: 30%;
+}
+
+img.animation{
+	width: 30%;
+	position: relative;
+	right: 15px;
+}
+
+

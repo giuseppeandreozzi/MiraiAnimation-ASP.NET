@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 100%;
+	color: #EEEEEE;
+}
+
+a.animation{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+a.animation img{
+	width: 100%;
+  	height: auto;
+}

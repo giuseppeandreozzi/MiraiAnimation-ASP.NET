@@ -1,10 +1,40 @@
 ﻿@page
 @model IndexModel
+@section CSS{
+	<link rel="stylesheet" href="css/index.css" type="text/css">
+}
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="parallax">
+	<img class="mx-auto d-block w-100 h-auto" src="img/bgText.png" alt="backgroundParallax">
 </div>
+
+<div class="container mx-6 bg-dark h-auto">
+	<div>
+		<img class="mx-auto d-block animation" src="img/logo.png" alt="logo">
+		<img class="mx-auto mt-5 d-block w-100 h-auto" src="img/descrizione.png" alt="descrizione">
+	</div>
+</div>
+
+
+<!--  form che serve solo per mantenere valori per lo script JS insertError() -->
+<form>
+	<input type="hidden" id="errorType" name="errorType" value="<%= errorType %>">
+	<input type="hidden" id="error" name="error" value="<%= errorString %>">
+</form>
+
+
+@section Scripts{
+	<script src="js/index.js"></script>
+	<script>
+		$(document).ready(function () {
+			$(".animation").hover(function () {
+				$(".animation").animate({ width: '40%' });
+			}, function () {
+				$(".animation").animate({ width: '30%' });
+			});
+		});
+	</script>
+}

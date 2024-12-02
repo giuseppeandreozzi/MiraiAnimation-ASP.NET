@@ -1,0 +1,19 @@
+﻿@page
+@model MiraiAnimation.Pages.AnimationModel
+
+@section CSS{
+	<link rel="stylesheet" href="/css/animation.css" type="text/css">
+}
+
+<div class="container pt-4 h-auto mt-4 bg-dark">
+	<div class="row">
+		@foreach (MiraiAnimation.Model.Animation anim in Model.animations) {
+			<div class="col-5 mx-auto px-0 mt-5 text-center">
+				<a class="animation" href="animation/@anim.id">
+					<img src="data:image/String;base64,@((anim.immagine != null) ? anim.immagine : " ")" alt="logo animazione" onerror="this.src='/img/anim/noimage.png' "> <br />
+					<span>@anim.titolo</span>
+				</a>
+			</div>
+		}
+	</div>
+</div>
