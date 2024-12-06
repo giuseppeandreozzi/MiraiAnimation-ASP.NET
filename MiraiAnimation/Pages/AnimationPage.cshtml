@@ -1,0 +1,78 @@
+﻿@page "{id}"
+@model MiraiAnimation.Pages.AnimationPageModel
+@section CSS {
+	<link rel="stylesheet" href="/css/animationPage.css" type="text/css">
+}
+@{
+	@using MiraiAnimation.Model
+}
+<div id="container" class="container h-auto pt-4 mt-4 bg-dark">
+	<div class="row pb-5">
+		<div class="col">
+			<img src="data:image/String;base64,@((@Model.Animation.immagine != null) ? @Model.Animation.immagine : " ")>" alt="logo animazione" onerror="this.src='/img/anim/noimage.png' ">
+		</div>
+		<div class="col">
+			<p id="nome">@Model.Animation.titolo</p>
+
+			<p>
+				<b>Tipo:</b> @Model.Animation.tipo<br />
+				<b>Uscita:</b> @Model.Animation.dataUscita <br />
+
+				<b>Genere:</b> @Model.Animation.genere
+			</p>
+
+			<p>
+				<b>Staff:</b><br />
+				@while (false) {
+					<span></span> <br />
+				}
+		</div>
+	</div>
+	<div id="rec" class="row">
+		<div class="col">
+			<span id="insertrec">Inserisci una recensione</span> <br />
+			@if (false) { <!-- da modificare successivamente -->
+				<span>Voto</span>
+				<ul id="star">
+					<li class="fa fa-star fa-2x" id="1star" onclick="checkStar(this.id)"></li>
+					<li class="fa fa-star fa-2x" id="2star" onclick="checkStar(this.id)"></li>
+					<li class="fa fa-star fa-2x" id="3star" onclick="checkStar(this.id)"></li>
+					<li class="fa fa-star fa-2x" id="4star" onclick="checkStar(this.id)"></li>
+					<li class="fa fa-star fa-2x" id="5star" onclick="checkStar(this.id)"></li>
+				</ul>
+				<form name="reviewForm" action="/aggiungiRecensione" method="POST">
+					<input type="hidden" name="codiceAnimazione" value="@Model.Animation.id">
+					<input type="hidden" name="voto" value="">
+					<span id="comment">Commento</span> <br />
+					<textarea name="commento" maxlength="255" rows="4" cols="30"></textarea><br /> <br />
+					<input type="submit" value="Inserisci"> <br />
+				</form>
+				<span class="error" id="errorComment"></span><br />
+			} else {
+			<p> Devi essere registrato per scrivere una recensione </p>
+			}
+
+			<span id="recensioni">Recensioni</span><br/>
+			@if(Model.Animation.recensioni == null || Model.Animation.recensioni.Count == 0) {
+				<p>Nessuna recensione disponibile</p>
+			} else {
+				@foreach (Recensione recensione in Model.Animation.recensioni) {
+					<p>
+						Utente: @recensione.username<br/>
+						Voto: @recensione.voto<br />
+						Commento:<br />
+						<span>
+							@recensione.commento
+						</span>
+					</p>
+				}
+			}
+
+
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="/js/animationPage.js"></script>
+}

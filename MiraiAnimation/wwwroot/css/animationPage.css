@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 100%;
+	color: #EEEEEE;
+}
+
+img{
+	float: left;
+	width: 100%;
+}
+
+#container{
+	min-height: 100%;
+}
+
+div#rec{
+	position: relative;
+}
+
+#nome{
+	font-size: 200%;
+}
+
+textarea{
+	resize: none;
+}
+
+ul#star li{
+	color: black;
+}
+
+i {
+	color: orange;
+}
+
+ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+#voto {
+	clear: none;
+	margin: 0;
+	padding: 0;
+}
+
+span#vote{
+	padding-right: 5px;
+}
+
+span#insertrec, span#recensioni{
+	font-size: 115%;
+	font-weight: bold;
+}
+
+span.error{
+	font-size: 100%;
+	color: red;
+	text-align: left !important;
+	padding-bottom: 5px;
+}

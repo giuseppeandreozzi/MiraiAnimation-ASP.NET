@@ -1,8 +1,11 @@
-﻿namespace MiraiAnimation.Model.Services {
+﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+
+namespace MiraiAnimation.Model.Services {
 	public class AnimationService : IDbService<Animation> {
-		private MyDbContext _db;
-		public AnimationService(MyDbContext db) {
-			_db = db;
+		private IQueryable<Animation> _animCollection;
+		public AnimationService(IMongoDatabase db) {
+			_animCollection = db.GetCollection<Animation>("animations").AsQueryable();
 		}
 
 		public bool AddElement(Animation element) {
@@ -14,11 +17,11 @@
 		}
 
 		public IEnumerable<Animation> GetAll() {
-			return _db.Animation.ToList();
+			return _animCollection.ToList();
 		}
 
 		public Animation GetById(string id) {
-			throw new NotImplementedException();
+			return _animCollection.Where(a => a.id == new MongoDB.Bson.ObjectId(id)).FirstOrDefault();
 		}
 
 		public bool RemoveElement(Animation element) {

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using MiraiAnimation.Model;
 using MiraiAnimation.Model.Services;
 using MongoDB.Driver;
@@ -9,13 +8,14 @@ if (builder.Environment.IsDevelopment()) {
 	builder.Configuration.AddUserSecrets<Program>();
 }
 
-var mongoClient = new MongoClient(builder.Configuration["DB_URI"]);
+var settings = MongoClientSettings.FromConnectionString(builder.Configuration["DB_URI"]);
+settings.ServerApi = new ServerApi(ServerApiVersion.V1);
+var mongoClient = new MongoClient(settings);
+var db = mongoClient.GetDatabase(builder.Configuration["DB_NAME"]);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<MyDbContext>(options => {
-    options.UseMongoDB(mongoClient, builder.Configuration["DB_NAME"]);
-});
+builder.Services.AddSingleton(db);
 builder.Services.AddScoped<IDbService<Animation>, AnimationService>();
 
 var app = builder.Build();
