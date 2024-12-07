@@ -17,6 +17,7 @@ var db = mongoClient.GetDatabase(builder.Configuration["DB_NAME"]);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton(db);
 builder.Services.AddScoped<IDbService<Animation>, AnimationService>();
+builder.Services.AddScoped<IDbService<Staff>, StaffService>();
 
 var app = builder.Build();
 

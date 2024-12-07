@@ -1,0 +1,32 @@
+﻿@page
+@model MiraiAnimation.Pages.ListaStaffModel
+@section CSS{
+    <link rel="stylesheet" href="css/listaStaff.css" type="text/css">
+}
+@using MiraiAnimation.Model;
+
+<div id="containerStaff" class="container pt-4 h-auto mt-4 bg-dark">
+	<div class="row">
+		@{int id = 1;}
+		@foreach (Staff staff in Model.staffs) {
+			<div class="col-6 text-center">
+				<a data-toggle="collapse" href="@(" #" + id)" role="button" aria-expanded="false" aria-controls="<%= id %>">
+					<img src="img/staff.png" class="w-50" alt="staff"><br/>
+					<span>@(staff.nome + " " + staff.cognome)</span>
+				</a><br />
+				<div class="collapse" id="@id">
+					<b>Anni di Servizio:</b> @staff.anniServizio<br/>
+					<b>Ruolo:</b> @staff.ruolo
+
+					<p>
+						<span>Animazioni</span> <br/>
+
+						<a href=""></a>
+						<br/>
+					</p>
+				</div>
+			</div>
+			id++;
+		} 
+	</div>
+</div>
