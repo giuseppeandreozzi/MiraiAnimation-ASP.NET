@@ -1,0 +1,45 @@
+﻿@page
+@model MiraiAnimation.Pages.ShopModel
+@section CSS{
+	<link rel="stylesheet" href="css/shop.css" type="text/css">
+}
+@using MiraiAnimation.Model;
+
+<div id="container" class="container pt-4 mt-4 bg-dark">
+	@foreach(BluRay bd in Model.bds) {
+		<div class="row pb-5">
+			<img class="float-left" src="data:image/String;base64,@((bd.immagine != null) ? bd.immagine : " ")" alt="cofanetto" onerror="this.src='img/bd/noimage.png'"/>
+
+			<div class="descrizione mr-4">
+				<p class="testo">
+					<a class="link" href="">@bd.anim.titolo</a> <br />
+					<span class="prezzo">Prezzo:</span> @bd.prezzo
+					<span></span><br />
+					<span class="contenuto">Descrizione:</span> <br />
+					<span>@bd.descrizione</span>
+				</p>
+
+				@if(false) { <!-- da modificare in futuro -->
+					<form name="shopForm" action="addToCart" method="post" onsubmit="return checkForm(this)">
+						<input type="hidden" name="bd" value="@bd.id">
+						<input type="hidden" name="prezzo" value="@bd.prezzo">
+						<label>
+							Quantità
+							<input type="number" name="quantity" min="1">
+						</label><br />
+						<input type="submit" value="Acquista" class="submit">
+					</form>
+					<span class="error" id=""></span>
+					<p>  </p>
+
+				} else {
+					<p> Devi essere registrato per poter effettuare l'acquisto</p>
+				} 
+			</div>
+		</div>
+	}
+</div>
+
+@section Scripts{
+	<script src="js/shop.js"></script>
+}

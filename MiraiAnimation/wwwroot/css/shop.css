@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 100%;
+	color: #EEEEEE;
+}
+
+
+.descrizione label{
+	font-weight: bold;
+}
+
+input[name=quantity]{
+	border-radius: 25px;
+	text-align: center;
+	width: 77px;
+}
+
+input[name=quantity]:focus{
+	outline: none;
+}
+
+div.row img{
+	width: 40%;
+	height: auto;
+}
+.submit{
+	border-radius: 25px;
+	cursor: pointer;
+	font-size: 90%;
+	background-color: green;
+}
+.submit:hover{
+	color: white;
+	transition: all .5s;
+}
+
+span.prezzo, span.contenuto{
+	font-weight: bold;
+}
+
+p.testo{
+	overflow-wrap: break-word;
+}
+
+div.descrizione{
+	max-width: 40%;
+}
+
+span.error{
+	font-size: 100%;
+	color: red;
+	text-align: left !important;
+	padding-bottom: 5px;
+	overflow-wrap: break-word;
+}
+
+.link{
+	text-decoration: none!important;
+	font-size: 200%;
+}
+
+@media only screen and (max-width: 768px) {
+
+	div#descrizione{
+	  margin: auto;
+	  width: 40%;
+	  font-size: 80%;
+	}
+	
+	input[name=quantity]{
+		width: 30%;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	div.row img{
+	    width: 50%; 
+	}
+	
+	div#descrizione{
+	  margin: auto;
+	  width: 70%;
+	}
+}

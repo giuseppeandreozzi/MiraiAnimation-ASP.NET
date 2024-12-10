@@ -18,6 +18,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton(db);
 builder.Services.AddScoped<IDbService<Animation>, AnimationService>();
 builder.Services.AddScoped<IDbService<Staff>, StaffService>();
+builder.Services.AddScoped<IDbService<BluRay>, BluRayService>();
 
 var app = builder.Build();
 
