@@ -21,9 +21,5 @@ namespace MiraiAnimation.Model {
 		public string città { get; set; }
 		public string CAP { get; set; }
 		public string via { get; set; }
-
-		public override string ToString() {
-			return via + ", " + città + ", " + CAP;
-		}
 	}
 }

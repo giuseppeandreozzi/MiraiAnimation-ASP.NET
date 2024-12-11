@@ -6,9 +6,9 @@ using MiraiAnimation.Model.Services;
 namespace MiraiAnimation.Pages {
     public class ListaStaffModel : PageModel {
         public IEnumerable<Staff> staffs;
-        private IDbService<Staff, string> _staffService;
+        private IDbService<Staff> _staffService;
 
-        public ListaStaffModel(IDbService<Staff, string> staffService) {
+        public ListaStaffModel(IDbService<Staff> staffService) {
             _staffService = staffService;
         }
 

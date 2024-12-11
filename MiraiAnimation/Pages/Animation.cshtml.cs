@@ -6,9 +6,9 @@ using MiraiAnimation.Model.Services;
 namespace MiraiAnimation.Pages {
     public class AnimationModel : PageModel {
 		public IEnumerable<Animation> animations;
-        private IDbService<Animation, string> _animService;
+        private IDbService<Animation> _animService;
 
-        public AnimationModel(IDbService<Animation, string> animService) {
+        public AnimationModel(IDbService<Animation> animService) {
             _animService = animService;
         }
 

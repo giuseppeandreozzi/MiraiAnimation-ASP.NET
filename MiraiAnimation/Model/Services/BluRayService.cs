@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 
 namespace MiraiAnimation.Model.Services {
-	public class BluRayService : IDbService<BluRay, string> {
+	public class BluRayService : IDbService<BluRay> {
 		private IQueryable<BluRay> _blurayCollection;
 		private IQueryable<Animation> _animCollection;
 		public BluRayService(IMongoDatabase db) {
@@ -34,10 +34,6 @@ namespace MiraiAnimation.Model.Services {
 		}
 
 		public BluRay GetById(string id) {
-			throw new NotImplementedException();
-		}
-
-		public BluRay GetByProperty(string property) {
 			throw new NotImplementedException();
 		}
 

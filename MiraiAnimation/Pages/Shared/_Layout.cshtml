@@ -34,18 +34,18 @@
 						<a class="nav-link" asp-page="ListaStaff">Personale</a>
 					</li>
 					<li class="nav-item mx-auto">
-						<a class="nav-link" asp-page="Shop">Negozio</a>
+						<a class="nav-link" href="/shop">Negozio</a>
 					</li>
 				</ul>
 
 				<ul class="navbar-nav ml-auto text-center">
-					@if (User.Claims.Count() == 0) {	
+					@if (true) {	<!-- da modificare in futuro-->
 						<li class="nav-item dropdown align-middle">
 							<a class="nav-link dropdown-toggle" href="#" id="logDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Accedi
 							</a>
 							<div class="dropdown-menu py-2 px-3 dropdown-menu-right" id="dropdownLog" aria-labelledby="logDropdown">
-								<form name="logForm" class="px-auto ml-auto text-center" asp-page="Index" asp-page-handler="Login" onsubmit="return checkLogForm()">
+								<form name="logForm" class="px-auto ml-auto text-center" action="/login" method="post" onsubmit="return checkLogForm()">
 									<input type="hidden" name="_csrf" value="<%= locals.csrf %>">
 									<div class="form-group">
 										<label for="userLog">Username</label>
@@ -79,7 +79,7 @@
 								<a class="dropdown-item" href="/account">Account</a>
 								<a class="dropdown-item" data-toggle="modal" data-target="#resetModal">Reimposta password</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Log out</a>
+								<a class="dropdown-item" href="logout">Log out</a>
 							</div>
 						</li>
 					
@@ -103,7 +103,6 @@
 			</div>
 		</nav>
 
-		<!-- form registrazione-->
 		<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content bg-opacity color">
@@ -113,7 +112,8 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<form name="signForm" asp-page="Index" asp-page-handler="Signup" onsubmit="return checkSignForm()">
+					<form name="signForm" action="/signup" method="post" onsubmit="return checkSignForm()">
+						<input type="hidden" name="_csrf" value="<%= locals.csrf %>">
 						<div class="modal-body mt-3">
 							<div class="form-group">
 								<input type="text" id="email" name="email" required>
@@ -121,7 +121,7 @@
 								<span class="error" id="errorSignEmail"></span>
 							</div>
 							<div class="form-group">
-								<input type="text" id="user" name="username" required>
+								<input type="text" id="user" name="user" required>
 								<label for="user">Username</label><br />
 								<span class="error" id="errorSignUser"></span>
 							</div>
@@ -147,11 +147,11 @@
 							</div>
 							<div class="form-group">
 								<h6 style="margin-bottom: 15px">Indirizzo</h6>
-								<input type="text" id="city" name="indirizzo.città" required>
+								<input type="text" id="city" name="city" required>
 								<label for="city">Città</label><br />
-								<input type="text" id="via" name="indirizzo.via" required>
+								<input type="text" id="via" name="via" required>
 								<label for="via">Via</label><br />
-								<input type="text" id="cap" name="indirizzo.CAP" required>
+								<input type="text" id="cap" name="cap" required>
 								<label for="cap">CAP</label><br />
 								<span class="error" id="errorSignAddress"></span>
 							</div>

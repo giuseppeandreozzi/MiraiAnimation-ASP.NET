@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 
 namespace MiraiAnimation.Model.Services {
-	public class StaffService : IDbService<Staff, string> {
+	public class StaffService : IDbService<Staff> {
 		private IQueryable<Staff> _staffCollection;
 		public StaffService(IMongoDatabase db) {
 			_staffCollection = db.GetCollection<Staff>("staffs").AsQueryable();
@@ -20,10 +20,6 @@ namespace MiraiAnimation.Model.Services {
 		}
 
 		public Staff GetById(string id) {
-			throw new NotImplementedException();
-		}
-
-		public Staff GetByProperty(string property) {
 			throw new NotImplementedException();
 		}
 
