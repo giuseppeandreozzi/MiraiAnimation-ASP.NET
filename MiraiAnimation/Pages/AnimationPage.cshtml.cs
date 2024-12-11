@@ -6,10 +6,10 @@ using MongoDB.Bson;
 namespace MiraiAnimation.Pages
 {
     public class AnimationPageModel : PageModel {
-        private IDbService<Animation> _animService;
+        private IDbService<Animation, string> _animService;
 		public Animation Animation { get; set; }
 
-		public AnimationPageModel(IDbService<Animation> animService) {
+		public AnimationPageModel(IDbService<Animation, string> animService) {
 			_animService = animService;
 		}
 		public void OnGet(string id) {

@@ -2,7 +2,7 @@
 using MongoDB.Driver.Linq;
 
 namespace MiraiAnimation.Model.Services {
-	public class AnimationService : IDbService<Animation> {
+	public class AnimationService : IDbService<Animation, string> {
 		private IQueryable<Animation> _animCollection;
 		public AnimationService(IMongoDatabase db) {
 			_animCollection = db.GetCollection<Animation>("animations").AsQueryable();
@@ -22,6 +22,10 @@ namespace MiraiAnimation.Model.Services {
 
 		public Animation GetById(string id) {
 			return _animCollection.Where(a => a.id == new MongoDB.Bson.ObjectId(id)).FirstOrDefault();
+		}
+
+		public Animation GetByProperty(string property) {
+			throw new NotImplementedException();
 		}
 
 		public bool RemoveElement(Animation element) {
