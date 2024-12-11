@@ -8,9 +8,9 @@ namespace MiraiAnimation.Pages {
     public class ShopModel : PageModel {
 		public IEnumerable<BluRay> bds { get; set; }
 
-        private IDbService<BluRay> _db;
+        private IDbService<BluRay, string> _db;
 
-        public ShopModel(IDbService<BluRay> db) {
+        public ShopModel(IDbService<BluRay, string> db) {
             _db = db;
         }
 
