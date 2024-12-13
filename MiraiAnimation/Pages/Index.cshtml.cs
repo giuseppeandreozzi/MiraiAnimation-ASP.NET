@@ -27,11 +27,12 @@ namespace MiraiAnimation.Pages {
             User user;
             if((user = _usersCollection.GetByProperty(username)) != null && _passHasher.VerifyHashedPassword(user, user.password, password) == PasswordVerificationResult.Success) {
                 List<Claim> claims = [
+                    new Claim("id", user.id.ToString()),
                     new Claim(ClaimTypes.Name, user.username),
                     new Claim("Nome", user.nome),
                     new Claim("Cognome", user.cognome),
                     new Claim("Email", user.email),
-                    new Claim("DataNascita", user.dataNascita.ToString()),
+                    new Claim("DataNascita", user.dataNascita.ToString("yyyy/MM/dd")),
                     new Claim("Indirizzo", user.indirizzo.ToString()),
                     new Claim("Tipo", user.tipo),
                     new Claim("Verificato", user.verificato.ToString())

@@ -1,4 +1,5 @@
 ﻿
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace MiraiAnimation.Model.Services {
@@ -13,8 +14,10 @@ namespace MiraiAnimation.Model.Services {
 			return task.IsFaulted;
 		}
 
-		public User EditElement(User element) {
-			throw new NotImplementedException();
+		public User EditElement(User user) {
+			var filter = Builders<User>.Filter.Eq(_user => _user.id, user.id);
+
+			return _usersCollection.FindOneAndReplace(filter, user);
 		}
 
 		public IEnumerable<User> GetAll() {
@@ -22,7 +25,7 @@ namespace MiraiAnimation.Model.Services {
 		}
 
 		public User GetById(string id) {
-			throw new NotImplementedException();
+			return _usersCollection.AsQueryable().Where(user => user.id == new ObjectId(id)).FirstOrDefault();
 		}
 
 		public User GetByProperty(string username) {

@@ -13,6 +13,7 @@ namespace MiraiAnimation.Model {
 		public Indirizzo indirizzo { get; set;}
 		public string tipo { get; set;}
 		public bool verificato { get; set;}
+		public IEnumerable<CartElement> carrello { get; set;} = Enumerable.Empty<CartElement>();
 
 	}
 
@@ -25,5 +26,12 @@ namespace MiraiAnimation.Model {
 		public override string ToString() {
 			return via + ", " + città + ", " + CAP;
 		}
+	}
+
+	public class CartElement {
+		public ObjectId id { get; set; }
+		public BluRay bluRay { get; set; }
+		public int quantità { get; set; }
+		public int prezzo { get; set; }
 	}
 }

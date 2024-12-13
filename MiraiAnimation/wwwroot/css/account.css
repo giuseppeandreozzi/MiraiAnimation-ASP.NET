@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 100%;
+	color: #EEEEEE;
+}
+form#form{
+	text-align: center;
+}
+
+form#form input{
+	border-radius: 25px;
+}
+
+form#form input:focus{
+	outline: none;
+}
+
+input[type=submit], input[type=reset] {
+	cursor: pointer;
+}
+
+p.msg{
+	text-align:center;
+}

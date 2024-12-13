@@ -1,0 +1,50 @@
+﻿@page
+@model MiraiAnimation.Pages.Users.CartModel
+@section CSS{
+	<link rel="stylesheet" href="/css/cart.css" type="text/css">
+}
+@using MiraiAnimation.Model;
+@{
+	int totale = 0;
+}
+<div id="container" class="container h-auto pt-4 mt-4 bg-dark">
+	<span id="titolo">Carrello</span> <br />
+
+	<div class="row">
+		@if (Model.Carrello.Count() == 0){
+			<span class="void"> Il carrello è vuoto</span>
+		} else { 
+			@foreach (CartElement el in Model.Carrello) {
+					totale += el.prezzo * el.quantità;
+
+
+				<div class="col-7 pb-3">
+					<img src="" alt="Cofanetto" onerror="this.src='img/bd/noimage.png'">
+
+					<div class="descrizione">
+						<p>
+							Nome: @el.bluRay.anim.titolo<br />
+							Descrizione: @el.bluRay.descrizione <br />
+							Prezzo: @el.prezzo <br />
+							Quantità: @el.quantità<br />
+						</p>
+					</div>
+					<form method="post" asp-page="Cart" asp-page-handler="Delete">
+						<input type="hidden" name="id" value="@el.id">
+						<input type="submit" value="Elimina">
+					</form>
+				</div>
+			}
+		}
+	</div>
+	<div class="float-right">
+		<div class="card card-totale bg-dark">
+			<div class="card-body">
+				<h5 class="card-title pb-0">Totale:</h5>
+				<p class="card-text"> @totale &euro;</p>
+				<a asp-page="Cart" asp-page-handler="Checkout" class="btn btn-success">Compra</a>
+			</div>
+		</div>
+	</div>
+
+</div>

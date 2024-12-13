@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 150%;
+	color: #EEEEEE;
+}
+
+div#container{
+	min-height: 100%;
+}
+
+div.row{
+	margin: 0;
+	border: 0;
+	padding: 0;
+	float: left;
+	width: 70%;
+}
+
+.card-totale{
+	border: 0;	
+	overflow-wrap: break-word;
+}
+
+span#titolo{
+	font-size: 200%;
+	display: block;
+	text-align: center;
+}
+
+div.row img{
+	float: left;
+	width: 50%;
+	height: auto;
+}
+	
+span#totale{
+	font-weight: bold;
+}
+
+div.descrizione{
+	clear: right;
+}
+
+div.descrizione p{
+	overflow-wrap: break-word;
+}
+
+span.void{
+	font-size: 150%;
+}
+
+@media only screen and (max-width: 768px) {
+
+	div#descrizione{
+	  width: 100%;
+	  font-size: 90%;
+	}
+	
+	div.row img{
+	    width: 60%; 
+	    height: auto;
+	    float: none;
+	}
+	
+	.card-totale, .card-totale h5{
+		font-size: 100%;
+	}
+	
+	div.row{
+		width: 70% !important;
+	}
+	
+	div.float-right{
+		width: 30%;
+	}
+
+}
+
+@media only screen and (max-width: 992px) {
+	div.row img{
+	    width: 100%; 
+	    height: auto;
+	}
+	
+	div#descrizione{
+	  width: 100%;
+	  font-size: 100%;
+	  clear: both;
+	}
+	
+	div.row{
+		width: 60%;
+	}
+	
+	div.col-7{
+		width: 100%;
+		margin: 0 auto;
+	}
+
+}
