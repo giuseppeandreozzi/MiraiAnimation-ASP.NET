@@ -1,0 +1,123 @@
+﻿@page
+@model MiraiAnimation.Pages.Admin.ManageAnimationModel
+@section CSS {
+	<link rel="stylesheet" href="/css/animManager.css" type="text/css">
+}
+
+@using MiraiAnimation.Model;
+
+<div id="container" class="container pt-4 mt-4">
+	<div class="accordion" id="accordionAnim">
+		<div class="card bg-dark">
+			<div class="card-header bg-light" id="headingEdit">
+				<h2 class="mb-0">
+					<button class="btn btn-light btn-block text-left" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="true" aria-controls="edit">
+						Modifica un'animazione
+					</button>
+				</h2>
+			</div>
+
+			<div id="edit" class="collapse show" aria-labelledby="headingEdit" data-parent="#accordionAnim">
+				<div class="card-body bg-dark">
+					<form id="animation" asp-page-handler="Edit" method="post" enctype="multipart/form-data" onsubmit="return checkInsertEditForm(this)">
+						<span>Animazione:</span>
+						<select name="codiceAnimazione" onchange="loadAnim()">
+							<option value="" disabled selected>Seleziona un'opzione</option>
+							@foreach(Animation anim in Model.Animations) {
+								<option value="@anim.id">@anim.titolo</option>
+							}
+						</select>
+
+						<div id="anim" class="pt-2">
+							<input type="hidden" name="id" value="">
+							<label>Titolo: <input type="text" name="titolo" required></label> <br />
+							<span class="error errorNome"></span>
+
+							<label>Genere: <input type="text" name="genere" required> </label> <br />
+							<span class="error errorGenere"></span>
+
+							<span>Tipo:</span>
+							<input type="radio" name="tipo" value="serie" required> Serie
+							<input type="radio" name="tipo" value="film" required> Film
+							<br />
+
+							<label>Data d'uscita: <input type="text" name="dataUscita"></label>
+							<span class="error errorUscita"></span>
+							<br />
+
+							<label>Immagine: <input type="file" name="immagine"></label>
+							<br />
+
+							<input type="submit"> <br />
+						</div>
+						<p> </p>
+					</form> <br />
+				</div>
+			</div>
+		</div>
+
+		<div class="card bg-dark">
+			<div class="card-header bg-light" id="headingInsert">
+				<h2 class="mb-0">
+					<button class="btn btn-light btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#insert" aria-expanded="false" aria-controls="insert">
+						Aggiungi un'animazione
+					</button>
+				</h2>
+			</div>
+			<div id="insert" class="collapse" aria-labelledby="headingInsert" data-parent="#accordionAnim">
+				<div class="card-body bg-dark">
+					<form id="addAnim" asp-page-handler="Add" enctype="multipart/form-data" onsubmit="return checkInsertEditForm(this)">
+						<label>Titolo: <input type="text" name="titolo" required></label> <br />
+						<span class="error errorNome"></span>
+
+						<label>Genere: <input type="text" name="genere" required> </label> <br />
+						<span class="error errorGenere"></span>
+
+						<span>Tipo:</span>
+						<input type="radio" name="tipo" value="serie" required> Serie
+						<input type="radio" name="tipo" value="film" required> Film
+						<br />
+
+						<label>Data d'uscita: <input type="text" name="dataUscita"></label>
+						<span class="error errorUscita"></span>
+						<br />
+
+						<label>Immagine: <input type="file" name="immagine"></label>
+						<br />
+
+						<input type="submit"> <br />
+						<p></p>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="card bg-dark">
+			<div class="card-header bg-light" id="headingDelete">
+				<h2 class="mb-0">
+					<button class="btn btn-light btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#delete" aria-expanded="false" aria-controls="delete">
+						Cancella un'animazione
+					</button>
+				</h2>
+			</div>
+			<div id="delete" class="collapse" aria-labelledby="headingDelete" data-parent="#accordionAnim">
+				<div class="card-body bg-dark">
+					<form name="del" asp-page-handler="Delete" method="post">
+						<span>Animazione: </span>
+						<select name="id">
+							<option value="" disabled selected>Seleziona un'opzione</option>
+							@foreach(Animation anim in Model.Animations) {
+								<option value="@anim.id">@anim.titolo</option>
+							}
+						</select>
+						<span class="error" id="errorDel"></span>
+						<input class="ml-2" type="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+	<script src="/js/animManager.js"></script>
+}

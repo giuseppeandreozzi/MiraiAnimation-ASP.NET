@@ -1,17 +1,17 @@
-﻿
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace MiraiAnimation.Model.Services {
 	public class UserService : IDbService<User, string> {
 		private readonly IMongoCollection<User> _usersCollection;
+
 		public UserService(IMongoDatabase db) { 
 			_usersCollection = db.GetCollection<User>("users");
 		}
 		public bool AddElement(User user) {
 			Task task = _usersCollection.InsertOneAsync(user);
 
-			return task.IsFaulted;
+			return !task.IsFaulted;
 		}
 
 		public User EditElement(User user) {
@@ -21,7 +21,7 @@ namespace MiraiAnimation.Model.Services {
 		}
 
 		public IEnumerable<User> GetAll() {
-			throw new NotImplementedException();
+			return _usersCollection.AsQueryable().ToList();
 		}
 
 		public User GetById(string id) {
@@ -32,8 +32,10 @@ namespace MiraiAnimation.Model.Services {
 			return _usersCollection.AsQueryable().SingleOrDefault(user => user.username == username);
 		}
 
-		public bool RemoveElement(User element) {
-			throw new NotImplementedException();
+		public bool RemoveElement(User user) {
+			var filter = Builders<User>.Filter.Eq(_user => _user.id, user.id);
+
+			return _usersCollection.DeleteOne(filter).DeletedCount == 1;
 		}
 	}
 }

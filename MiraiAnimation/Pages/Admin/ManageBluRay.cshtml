@@ -1,0 +1,118 @@
+﻿@page
+@model MiraiAnimation.Pages.Admin.ManageBluRayModel
+@section CSS{
+    <link rel="stylesheet" href="/css/manageBluRay.css" type="text/css">
+}
+
+@using MiraiAnimation.Model;
+
+<div id="container" class="container pt-4 mt-4">
+    <div class="accordion" id="accordionBD">
+        <!-- Edit -->
+        <div class="card bg-dark">
+            <div class="card-header bg-light" id="headingEdit">
+                <h2 class="mb-0">
+                    <button class="btn btn-light btn-block text-left" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="true" aria-controls="edit">
+                        Modifica un cofanetto
+                    </button>
+                </h2>
+            </div>
+
+            <div id="edit" class="collapse show" aria-labelledby="headingEdit" data-parent="#accordionBD">
+                <div class="card-body bg-dark">
+                    <form name="editBD" id="editBD" asp-page-handler="Edit" enctype="multipart/form-data" onsubmit="return checkForm(this)">
+                        <span>Cofanetto: </span><select name="id" onchange="loadBD()">
+                            <option value="" disabled selected>Selezione un'opzione</option>
+                            @foreach (BluRay bd in Model.Bds) {
+                                <option value="@bd.id">@bd.anim.titolo</option>
+                            }
+                        </select>
+
+                        <div id="cofanetto">
+                            <label>
+                                Descrizione:<br />
+                                <textarea name="descrizione" rows="5" cols="30" maxlength="100" required></textarea>
+                            </label> <br />
+                            <span class="error errorContenuto"></span>
+
+                            <label>Prezzo: <input type="number" class="numb" name="prezzo" min="1" required></label> <br />
+                            <span class="error errorPrezzo"></span>
+
+                            <label>Immagine: <input type="file" name="immagine"></label> <br />
+                            <input type="submit"> <br />
+                        </div>
+                        <span class="error"></span><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add -->
+        <div class="card bg-dark">
+            <div class="card-header bg-light" id="headingInsert">
+                <h2 class="mb-0">
+                    <button class="btn btn-light btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#insert" aria-expanded="false" aria-controls="insert">
+                        Inserisci un cofanetto
+                    </button>
+                </h2>
+            </div>
+            <div id="insert" class="collapse" aria-labelledby="headingInsert" data-parent="#accordionBD">
+                <div class="card-body bg-dark">
+                    <form id="insertBD" asp-page-handler="Add" enctype="multipart/form-data" onsubmit="return checkForm(this)">
+                        Animazione: <select name="animazione">
+                            <option value="" disabled selected>Selezione un'opzione</option>
+                            @foreach (Animation anim in Model.Animations) {
+                                <option value="@anim.id">@anim.titolo</option >
+                            }
+                        </select> <br />
+
+                        <label>
+                            Descrizione: <br />
+                            <textarea name="descrizione" rows="5" cols="30" maxlength="100" required></textarea>
+                        </label> <br />
+                        <span class="error errorContenuto"></span>
+
+                        <label>Prezzo: <input type="number" class="numb" name="prezzo" min="1" required></label> <br />
+                        <span class="error errorPrezzo"></span>
+
+                        <label>Immagine: <input type="file" name="immagine"></label> <br />
+
+                        <input type="submit"> <br />
+                        <span class="error"></span><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete -->
+        <div class="card bg-dark">
+            <div class="card-header bg-light" id="headingDelete">
+                <h2 class="mb-0">
+                    <button class="btn btn-light btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#delete" aria-expanded="false" aria-controls="delete">
+                        Cancella un cofanetto
+                    </button>
+                </h2>
+            </div>
+            <div id="delete" class="collapse" aria-labelledby="headingDelete" data-parent="#accordionBD">
+                <div class="card-body bg-dark">
+                    <form id="bd" asp-page-handler="Delete">
+                        <span>Cofanetto: </span>
+
+                        <select name="id">
+                            @foreach (BluRay bd in Model.Bds) {
+                                <option value="@bd.id">@(bd.anim.titolo + " | "  + bd.prezzo)</option>
+                            }
+                        </select>
+
+                        <input class="ml-2" type="submit"> <br />
+                        <span></span><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/js/manageBluRay.js"></script>
+}

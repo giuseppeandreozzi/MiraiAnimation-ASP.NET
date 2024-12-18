@@ -12,7 +12,6 @@ namespace MiraiAnimation.Model {
 		public byte[]? immagine { get; set; }
 		[BsonElement("recensioni")]
 		public List<Recensione> recensioni { get; set; }
-		//public Staff[] staffs { get; set; }
 
 	}
 

@@ -1,0 +1,116 @@
+﻿@page
+@model MiraiAnimation.Pages.Admin.ManageStaffModel
+@section CSS{
+    <link rel="stylesheet" href="/css/manageStaff.css" type="text/css">
+}
+
+@using MiraiAnimation.Model;
+
+<div id="container" class="container pt-4 mt-4">
+    <div class="accordion" id="accordionStaff">
+        <!-- Edit -->
+        <div class="card bg-dark">
+            <div class="card-header bg-light" id="headingEdit">
+                <h2 class="mb-0">
+                    <button class="btn btn-light btn-block text-left" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="true" aria-controls="edit">
+                        Modifica un personale
+                    </button>
+                </h2>
+            </div>
+
+            <div id="edit" class="collapse show" aria-labelledby="headingEdit" data-parent="#accordionStaff">
+                <div class="card-body bg-dark">
+                    <form name="editStaff" id="editStaff" asp-page-handler="Edit" onsubmit="return checkEditForm()">
+
+                        <span>Personale: </span>
+                        <select name="id" onchange="loadStaff()">
+                            <option value="" disabled selected>Seleziona un'opzione</option>
+                            @foreach (Staff staff in Model.Staffs) {
+                                <option value="@staff.id">@(staff.nome + " " + staff.cognome + " | " + staff.ruolo)</option>
+                            } 
+                        </select> <br />
+
+                        <div class="py-2" id="staff">
+                            <label>Nome: <input type="text" name="nome" required></label> <br />
+                            <label>Cognome: <input type="text" name="cognome" required></label> <br />
+                            <label>Anni servizio: <input type="number" class="anni" name="anniServizio" min="0" required></label> <br />
+                            <span class="error" id="errorAnniEdit"></span>
+
+                            Ruolo: 	<br />
+                            <input type="radio" name="ruolo" value="Direttore" required> Direttore <br />
+                            <input type="radio" name="ruolo" value="Staff tecnico" required> Staff Tecnico <br />
+                            <input type="radio" name="ruolo" value="Regista" required> Regista <br />
+                            <span class="error" id="errorRuoloEdit"></span>
+
+                            <input class="mt-2" type="submit"> <br />
+                        </div>
+                    </form>
+                    <span class="error"></span><br />
+                </div>
+            </div>
+        </div>
+
+        <!-- Add -->
+        <div class="card bg-dark">
+            <div class="card-header bg-light" id="headingInsert">
+                <h2 class="mb-0">
+                    <button class="btn btn-light btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#insert" aria-expanded="false" aria-controls="insert">
+                        Inserisci un personale
+                    </button>
+                </h2>
+            </div>
+            <div id="insert" class="collapse" aria-labelledby="headingInsert" data-parent="#accordionStaff">
+                <div class="card-body bg-dark">
+                    <form name="insertStaff" id="insertStaff" asp-page-handler="Add" onsubmit="return checkInsertForm()">
+
+                        <label>Nome: <input type="text" name="nome" required></label> <br />
+                        <span class="error" id="errorNome"></span>
+
+                        <label>Cognome: <input type="text" name="cognome" required></label> <br />
+                        <span class="error" id="errorCognome"></span>
+
+                        <label>Anni servizio: <input type="number" class="anni" name="anniServizio" required></label> <br />
+                        <span class="error" id="errorAnniInsert"></span>
+
+                        Ruolo: 	<br />
+                        <input type="radio" name="ruolo" value="Direttore" required> Direttore <br />
+                        <input type="radio" name="ruolo" value="Staff tecnico" required> Staff Tecnico <br />
+                        <input type="radio" name="ruolo" value="Regista" required> Regista <br />
+                        <span class="error" id="errorRuoloInsert"></span>
+
+                        <input class="mt-2" type="submit"> <br />
+                    </form>
+                    <span class="error"></span><br />
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete -->
+        <div class="card bg-dark">
+            <div class="card-header bg-light" id="headingDelete">
+                <h2 class="mb-0">
+                    <button class="btn btn-light btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#delete" aria-expanded="false" aria-controls="delete">
+                        Cancella un membro del personale
+                    </button>
+                </h2>
+            </div>
+            <div id="delete" class="collapse" aria-labelledby="headingDelete" data-parent="#accordionStaff">
+                <div class="card-body bg-dark">
+                    <form id="deleteStaff" asp-page-handler="Delete">
+                        <span>Personale: </span>
+                        <select name="id">
+                            @foreach (Staff staff in Model.Staffs) {
+                                <option value="@staff.id"> @(staff.nome + " " + staff.cognome + " | " + staff.ruolo)</option>
+                            }
+                        </select>
+                        <input class="ml-2" type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/manageStaff.js"></script>
+}

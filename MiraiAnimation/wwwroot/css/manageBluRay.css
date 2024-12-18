@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 100%;
+	color: #EEEEEE;
+}
+
+#cofanetto {
+	display: none;
+}
+
+input[type=submit]{
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover{
+	color: green;
+	transition: all 0.3s;
+}
+input{
+	border-radius: 25px;
+}
+
+input:focus{
+	outline: none;
+}
+
+select{
+	border-radius: 25px;
+}
+
+select:focus{
+	outline: none;
+}
+
+textarea{
+	resize:none;
+}
+
+input.numb{
+	text-align: center;
+	width: 30%;
+}
+

@@ -83,17 +83,17 @@
 							</div>
 						</li>
 					
-						@if (false) { <!-- da modificare in futuro-->
+						@if (User.FindFirst("tipo").Value == "admin") { <!-- da modificare in futuro-->
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Sezione Admin
 								</a>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
-									<a class="dropdown-item" href="/pannelloAnimazioni">Pannello Animazioni</a>
-									<a class="dropdown-item" href="/pannelloStaff">Pannello Personale</a>
+									<a class="dropdown-item" asp-page="/Admin/ManageAnimation">Pannello Animazioni</a>
+									<a class="dropdown-item" asp-page="/Admin/ManageStaff">Pannello Personale</a>
 									<!--  <div class="dropdown-divider"></div>-->
-									<a class="dropdown-item" href="/pannelloBD">Pannello Blu-ray</a>
-									<a class="dropdown-item" href="/pannelloUtenti">Pannello Utenti</a>
+									<a class="dropdown-item" asp-page="/Admin/ManageBluRay">Pannello Blu-ray</a>
+									<a class="dropdown-item" asp-page="/Admin/ManageUser">Pannello Utenti</a>
 								</div>
 							</li>
 						} 

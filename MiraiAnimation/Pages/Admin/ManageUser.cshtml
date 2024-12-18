@@ -1,0 +1,88 @@
+﻿@page
+@model MiraiAnimation.Pages.Admin.ManageUserModel
+@section CSS{
+	<link rel="stylesheet" href="/css/manageUser.css" type="text/css">
+}
+
+@using MiraiAnimation.Model;
+
+<div id="container" class="container pt-4 mt-4">
+	<div class="accordion" id="accordionUser">
+		<!-- Edit -->
+		<div class="card bg-dark">
+			<div class="card-header bg-light" id="headingEdit">
+				<h2 class="mb-0">
+					<button class="btn btn-light btn-block text-left" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="true" aria-controls="edit">
+						Modifica un utente
+					</button>
+				</h2>
+			</div>
+
+			<div id="edit" class="collapse show" aria-labelledby="headingEdit" data-parent="#accordionUser">
+				<div class="card-body bg-dark">
+					<form id="editForm" name="editForm" asp-page-handler="Edit" onsubmit="return checkEditForm()">
+						<span>Utente: </span>
+						<select name="id" onchange="loadUser()">
+							<option value="" disabled selected>Seleziona un'opzione</option>
+							@foreach (User user in Model.Users) {
+								<option value="@user.id">@user.username</option>
+							}
+						</select>
+						<span class="error" id="errorUserEdit"></span>
+
+						<div class="py-2" id="userDiv">
+							Username: <input type="text" name="username"><br />
+							Password: <input type="password" name="password"><br />
+							E-mail: <input type="text" name="email"><br />
+							Nome: <input type="text" name="nome"><br />
+							Cognome: <input type="text" name="cognome"><br />
+							Data di Nascita: <input type="text" name="dataNascita"><br />
+							Indirizzo:<br />
+							Città: <input type="text" name="indirizzo.città"><br />
+							Via: <input type="text" name="indirizzo.via"><br />
+							CAP: <input type="text" name="indirizzo.CAP"><br />
+							<span id="tipo" class="bold">Tipo:</span> <br />
+							<input type="radio" name="tipo" value="utente"> Utente <br />
+							<input type="radio" name="tipo" value="admin"> Amministratore <br />
+							<span class="error" id="errorTipo"></span>
+
+
+							<input type="submit" value="Conferma"> <br />
+						</div>
+					</form>
+					<span class="error"></span><br />
+				</div>
+			</div>
+		</div>
+
+		<!-- Delete -->
+		<div class="card bg-dark">
+			<div class="card-header bg-light" id="headingDelete">
+				<h2 class="mb-0">
+					<button class="btn btn-light btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#delete" aria-expanded="false" aria-controls="delete">
+						Cancella un utente
+					</button>
+				</h2>
+			</div>
+			<div id="delete" class="collapse" aria-labelledby="headingDelete" data-parent="#accordionUser">
+				<div class="card-body bg-dark">
+					<form id="deleteForm" name="deleteForm" asp-page-handler="Delete" onsubmit="return checkDelForm()">
+						<select name="id">
+							<option value="" disabled selected>Seleziona un'opzione</option>
+							@foreach (User user in Model.Users) {
+								<option value="@user.id">@user.username</option>
+							}
+						</select>
+						<span class="error" id="errorDel"></span>
+						<input type="submit" value="Conferma"> <br />
+					</form>
+					<span></span><br />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="/js/manageUser.js"></script>
+}

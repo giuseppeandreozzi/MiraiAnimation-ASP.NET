@@ -3,22 +3,26 @@ using MongoDB.Driver;
 
 namespace MiraiAnimation.Model.Services {
 	public class BluRayService : IDbService<BluRay, string> {
-		private IQueryable<BluRay> _blurayCollection;
+		private IMongoCollection<BluRay> _blurayCollection;
 		private IQueryable<Animation> _animCollection;
 		public BluRayService(IMongoDatabase db) {
-			_blurayCollection = db.GetCollection<BluRay>("blu-rays").AsQueryable();
+			_blurayCollection = db.GetCollection<BluRay>("blu-rays");
 			_animCollection = db.GetCollection<Animation>("animations").AsQueryable();
 		}
-		public bool AddElement(BluRay element) {
-			throw new NotImplementedException();
+		public bool AddElement(BluRay bluray) {
+			Task task = _blurayCollection.InsertOneAsync(bluray);
+
+			return !task.IsFaulted;
 		}
 
-		public BluRay EditElement(BluRay element) {
-			throw new NotImplementedException();
+		public BluRay EditElement(BluRay bd) {
+			var filter = Builders<BluRay>.Filter.Eq("id", bd.id);
+
+			return _blurayCollection.FindOneAndReplace(filter, bd);
 		}
 
 		public IEnumerable<BluRay> GetAll() {
-			return _blurayCollection.GroupJoin(_animCollection,
+			return _blurayCollection.AsQueryable().GroupJoin(_animCollection,
 				bluRay => bluRay.animazione,
 				anim => anim.id,
 				(bluRay, anim) =>
@@ -30,19 +34,23 @@ namespace MiraiAnimation.Model.Services {
 						anim = anim.ElementAt(0)
 					}
 			).ToList();
-			//return _blurayCollection.ToList();
 		}
 
 		public BluRay GetById(string id) {
-			throw new NotImplementedException();
-		}
+			BluRay bd = _blurayCollection.AsQueryable().Where(bd => bd.id == new MongoDB.Bson.ObjectId(id)).FirstOrDefault();
+			bd.anim = _animCollection.Where(animation => animation.id == bd.animazione).FirstOrDefault();
+
+			return bd;
+        }
 
 		public BluRay GetByProperty(string property) {
 			throw new NotImplementedException();
 		}
 
 		public bool RemoveElement(BluRay element) {
-			throw new NotImplementedException();
+			var filter = Builders<BluRay>.Filter.Eq(bd => bd.id, element.id);
+
+			return _blurayCollection.DeleteOne(filter).DeletedCount == 1;
 		}
 	}
 }

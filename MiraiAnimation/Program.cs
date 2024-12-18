@@ -6,6 +6,8 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 if (builder.Environment.IsDevelopment()) {
 	builder.Configuration.AddUserSecrets<Program>();
 }
@@ -27,7 +29,14 @@ builder.Services.AddScoped<PasswordHasher<User>>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => {
         options.AccessDeniedPath = "/Forbidden";
+        options.LoginPath = "/";
     });
+
+builder.Services.AddAuthorization(options => {
+	options.AddPolicy("AdminRole", policy => {
+		policy.RequireClaim("tipo", "admin");
+	});
+});
 
 var app = builder.Build();
 
@@ -44,5 +53,32 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapPost("/infoAnimazione", (IFormCollection formCollection, IDbService<Animation, string> animCollection) => {
+    Animation _anim = animCollection.GetById(formCollection["codiceAnimazione"]);
+
+    return new {
+        anim = _anim,
+        id = _anim.id.ToString()
+    };
+}).DisableAntiforgery(); // solo momentaneamente
+
+app.MapPost("/infoBluRay", (IFormCollection formCollection, IDbService<BluRay, string> bluRayCollection) => {
+    BluRay _bd = bluRayCollection.GetById(formCollection["id"]);
+
+    return _bd;
+}).DisableAntiforgery(); // solo momentaneamente
+
+app.MapPost("/infoStaff", (IFormCollection formCollection, IDbService<Staff, string> staffCollection) => {
+    Staff _staff = staffCollection.GetById(formCollection["id"]);
+
+    return _staff;
+}).DisableAntiforgery(); // solo momentaneamente
+
+app.MapPost("/infoUser", (IFormCollection formCollection, IDbService<User, string> userCollection) => {
+	User _user = userCollection.GetById(formCollection["id"]);
+
+	return _user;
+}).DisableAntiforgery(); // solo momentaneamente
 
 app.Run();
