@@ -166,7 +166,7 @@
 			</div>
 		</div>
 
-		@if(false) { <!-- da modificare in futuro-->
+		@if(User.Claims.Count() > 0 && bool.Parse(User.FindFirst("Verificato").Value) == false) {
 			<div>
 				<span>Account non verificato. Visiona la tua casella mail</span>
 			</div>

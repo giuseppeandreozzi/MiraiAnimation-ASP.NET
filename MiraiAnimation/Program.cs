@@ -1,3 +1,4 @@
+using Mailjet.Client;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using MiraiAnimation.Model;
@@ -5,8 +6,6 @@ using MiraiAnimation.Model.Services;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 if (builder.Environment.IsDevelopment()) {
 	builder.Configuration.AddUserSecrets<Program>();
@@ -36,6 +35,12 @@ builder.Services.AddAuthorization(options => {
 	options.AddPolicy("AdminRole", policy => {
 		policy.RequireClaim("tipo", "admin");
 	});
+});
+
+builder.Services.AddHttpClient<IMailjetClient, MailjetClient>(client => {
+    client.SetDefaultSettings();
+
+    client.UseBasicAuthentication(builder.Configuration["MJ_APIKEY_PUBLIC"], builder.Configuration["MJ_APIKEY_PRIVATE"]);
 });
 
 var app = builder.Build();

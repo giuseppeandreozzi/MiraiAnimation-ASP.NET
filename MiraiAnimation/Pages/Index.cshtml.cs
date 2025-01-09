@@ -1,3 +1,5 @@
+using Mailjet.Client;
+using Mailjet.Client.TransactionalEmails;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -6,17 +8,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MiraiAnimation.Model;
 using MiraiAnimation.Model.Services;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Transactions;
 
 namespace MiraiAnimation.Pages {
     public class IndexModel : PageModel {
         private readonly ILogger<IndexModel> _logger;
         private readonly PasswordHasher<User> _passHasher;
         private readonly IDbService<User, string> _usersCollection;
+        private readonly IMailjetClient _mailClient;
+        private readonly IConfiguration _configuration;
 
-		public IndexModel(ILogger<IndexModel> logger, PasswordHasher<User> passHasher, IDbService<User, string> usersCollection) {
+		public IndexModel(ILogger<IndexModel> logger, PasswordHasher<User> passHasher, IDbService<User, string> usersCollection, IMailjetClient mailClient, IConfiguration configuration) {
             _logger = logger;
             _passHasher = passHasher;
             _usersCollection = usersCollection;
+            _mailClient = mailClient;
+            _configuration = configuration;
         }
 
         public void OnGet() {
@@ -48,12 +56,27 @@ namespace MiraiAnimation.Pages {
             return Page();
         }
 
-        public IActionResult OnPostSignup(User user) {
+        public async Task<IActionResult> OnPostSignup(User user) {
             user.tipo = "utente";
             user.password = _passHasher.HashPassword(user, user.password);
+            user.datiVerifica.token = RandomNumberGenerator.GetHexString(16);
+            user.datiVerifica.scadenza = DateTime.Now.AddMinutes(10);
+            user.verificato = false;
 
             if (_usersCollection.AddElement(user)) {
-                return new RedirectToPageResult("Index");
+                string link = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Users/VerifyMail/{user.datiVerifica.token}/{user.id}";
+
+                string mailContent = $"<h2>Verifica e-mail</h2></br>"
+                       + $"Clicca sul seguente link per attivare la mail: <a href='{link}'>Verifica mail</a>";
+                var mail = new TransactionalEmailBuilder()
+                    .WithFrom(new SendContact(_configuration["EMAIL"]))
+                    .WithSubject("Verifica e-mail")
+                    .WithHtmlPart(mailContent)
+                    .WithTo(new SendContact(user.email))
+                    .Build();
+
+				await _mailClient.SendTransactionalEmailAsync(mail);
+				return new RedirectToPageResult("Index");
             }
 
             return Page();

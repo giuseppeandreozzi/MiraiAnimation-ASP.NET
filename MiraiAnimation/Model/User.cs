@@ -14,7 +14,7 @@ namespace MiraiAnimation.Model {
 		public string tipo { get; set;}
 		public bool verificato { get; set;}
 		public IEnumerable<CartElement> carrello { get; set;} = Enumerable.Empty<CartElement>();
-		public DatiVerifica datiVerifica { get; set;}
+		public DatiVerifica datiVerifica { get; set; } = new DatiVerifica();
 		public IEnumerable<OrderElement> ordini { get; set; }
 
 	}

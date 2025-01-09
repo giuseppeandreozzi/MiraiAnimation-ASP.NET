@@ -1,0 +1,22 @@
+﻿@page "{token}/{id}"
+@model MiraiAnimation.Pages.Users.VerifyMailModel
+
+@section CSS {
+    <style>
+        html, body{
+	        font-size: 110%;
+	        background: #37474F;
+	        height: 100%;
+	        color: #EEEEEE;
+        }
+    </style>
+}
+<div id="container" class="container h-auto pt-4 mt-4 bg-dark">
+    @if(Model.Success){
+        <h1>Email verificata con successo</h1>
+    }
+
+    @if(Model.AlreadyVerified){
+        <h1>Email già verificata</h1>
+    }
+</div>
