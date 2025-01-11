@@ -2,6 +2,7 @@ using Mailjet.Client;
 using Mailjet.Client.TransactionalEmails;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -88,5 +89,34 @@ namespace MiraiAnimation.Pages {
 
             return new RedirectToPageResult("Index");
 		}
+
+        public async Task<IActionResult> OnGetResetPassword() {
+            User user = _usersCollection.GetById(User.FindFirst("id").Value);
+
+            if (user == null) {
+                return Page();
+            }
+
+            user.datiVerifica = new DatiVerifica();
+            user.datiVerifica.token = RandomNumberGenerator.GetHexString(16);
+            user.datiVerifica.scadenza = DateTime.Now.AddMinutes(10);
+
+            _usersCollection.EditElement(user);
+
+            string link = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Users/ResetPassword/{user.datiVerifica.token}/{user.id}";
+
+            string mailContent = $"<h2>Reimposta password</h2></br>"
+                   + $"Clicca sul seguente link per reimpostare la password: <a href='{link}'>Reimposta password</a>";
+            var mail = new TransactionalEmailBuilder()
+                .WithFrom(new SendContact(_configuration["EMAIL"]))
+                .WithSubject("Reimposta password")
+                .WithHtmlPart(mailContent)
+                .WithTo(new SendContact(user.email))
+                .Build();
+
+            await _mailClient.SendTransactionalEmailAsync(mail);
+
+            return Page();
+        }
     }
 }
