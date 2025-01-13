@@ -1,0 +1,40 @@
+﻿@page
+@model MiraiAnimation.Pages.Users.OrdersModel
+@section CSS{
+	<link rel="stylesheet" href="/css/orders.css" type="text/css">
+}
+
+@using MiraiAnimation.Model;
+
+<div id="container" class="container pt-4 mt-4 bg-dark h-100">
+	<span id="titolo">Ordini effettuati</span>
+	<div id="accordion">
+		@foreach (OrderElement order in Model.Orders) {
+			<div class="card">
+				<div class="card-header" id="@("heading" + order.Id)">
+					<h5 class="mb-0">
+						<button class="btn btn-link" data-toggle="collapse" data-target="#@order.Id" aria-expanded="false" aria-controls="@order.Id">
+							Ordine numero @order.Id
+						</button>
+						<span class="float-right">Effettuato in data @order.dataAcquisto</span>
+					</h5>
+				</div>
+
+				<div id="@order.Id" class="collapse" aria-labelledby="@("heading" + order.Id)" data-parent="#accordion">
+					<div class="card-body">
+						<div class="row">
+							@foreach (CartElement el in order.prodotti) {
+								<div class="col">
+									<span>Nome:</span> @el.bluRay.anim.titolo<br />
+									<span>Quantità:</span> @el.quantità<br />
+									<span>Prezzo:</span> @el.prezzo<br />
+								</div>
+							}
+						</div>
+						<!-- <a href="">Fattura</a> -->
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>

@@ -19,13 +19,13 @@
 					<span>@bd.descrizione</span>
 				</p>
 
-				@if(false) { <!-- da modificare in futuro -->
-					<form name="shopForm" action="addToCart" method="post" onsubmit="return checkForm(this)">
-						<input type="hidden" name="bd" value="@bd.id">
+				@if(User.Claims.Count() > 0) {
+					<form name="shopForm" asp-page-handler="Add" onsubmit="return checkForm(this)">
+						<input type="hidden" name="id" value="@bd.id">
 						<input type="hidden" name="prezzo" value="@bd.prezzo">
 						<label>
 							Quantità
-							<input type="number" name="quantity" min="1">
+							<input type="number" name="quantità" min="1">
 						</label><br />
 						<input type="submit" value="Acquista" class="submit">
 					</form>

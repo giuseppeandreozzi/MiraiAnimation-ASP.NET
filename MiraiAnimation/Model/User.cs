@@ -13,9 +13,9 @@ namespace MiraiAnimation.Model {
 		public Indirizzo indirizzo { get; set;}
 		public string tipo { get; set;}
 		public bool verificato { get; set;}
-		public IEnumerable<CartElement> carrello { get; set;} = Enumerable.Empty<CartElement>();
+		public List<CartElement> carrello { get; set;} = new List<CartElement> ();
 		public DatiVerifica? datiVerifica { get; set; } = new DatiVerifica();
-		public IEnumerable<OrderElement> ordini { get; set; }
+		public List<OrderElement> ordini { get; set; } = new List<OrderElement>();
 
 	}
 
@@ -31,20 +31,20 @@ namespace MiraiAnimation.Model {
 	}
 
 	public class CartElement {
-		public ObjectId id { get; set; }
+		public ObjectId Id { get; set; }
 		public BluRay bluRay { get; set; }
 		public int quantità { get; set; }
 		public int prezzo { get; set; }
 	}
 
 	public class OrderElement {
-		public ObjectId id { get; set; }
-		public IEnumerable<CartElement> prodotti { get; set; }
+		public ObjectId Id { get; set; }
+		public List<CartElement> prodotti { get; set; }
 		public DateTime dataAcquisto { get; set; }
 	}
 
 	public class DatiVerifica {
-		public ObjectId id { get; set; }
+		public ObjectId Id { get; set; }
 		public string token { get; set; }
 		public DateTime scadenza { get; set; }
 	}

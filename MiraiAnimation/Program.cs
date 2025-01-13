@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Identity;
 using MiraiAnimation.Model;
 using MiraiAnimation.Model.Services;
 using MongoDB.Driver;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsDevelopment()) {
 	builder.Configuration.AddUserSecrets<Program>();
 }
+
+StripeConfiguration.ApiKey = builder.Configuration["SK_STRIPE"];
 
 var settings = MongoClientSettings.FromConnectionString(builder.Configuration["DB_URI"]);
 settings.ServerApi = new ServerApi(ServerApiVersion.V1);

@@ -19,7 +19,7 @@
 
 
 				<div class="col-7 pb-3">
-					<img src="" alt="Cofanetto" onerror="this.src='img/bd/noimage.png'">
+					<img class="float-left" src="data:image/String;base64,@((el.bluRay.immagine != null) ? el.bluRay.immagine : " ")" alt="cofanetto" onerror="this.src='/img/bd/noimage.png'" />
 
 					<div class="descrizione">
 						<p>
@@ -29,8 +29,8 @@
 							Quantità: @el.quantità<br />
 						</p>
 					</div>
-					<form method="post" asp-page="Cart" asp-page-handler="Delete">
-						<input type="hidden" name="id" value="@el.id">
+					<form asp-page="Cart" asp-page-handler="Delete">
+						<input type="hidden" name="id" value="@el.Id">
 						<input type="submit" value="Elimina">
 					</form>
 				</div>

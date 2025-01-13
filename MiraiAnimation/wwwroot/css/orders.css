@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+html, body{
+	font-size: 110%;
+	background: #37474F;
+	height: 100%;
+	color: #EEEEEE;
+}
+
+span#titolo{
+	font-size: 200%;
+	text-align: center;
+	display: block;
+}
+
+div.row span{
+	font-weight: bold;	
+	display: inline-block;
+}
+
+div.col-3 img{
+	width: 100%;
+	height: auto;
+}
+.card {
+	background-color: #EEEEEE;
+}
+
+.card-body {
+	color: #343a40;
+}
+
+h5.mb-0 span {
+	color: #343a40;
+	font-size: 1rem;
+}
