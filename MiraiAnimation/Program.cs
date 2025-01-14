@@ -5,6 +5,7 @@ using MiraiAnimation.Model;
 using MiraiAnimation.Model.Services;
 using MongoDB.Driver;
 using Stripe;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ if (builder.Environment.IsDevelopment()) {
 }
 
 StripeConfiguration.ApiKey = builder.Configuration["SK_STRIPE"];
+QuestPDF.Settings.License = LicenseType.Community;
 
 var settings = MongoClientSettings.FromConnectionString(builder.Configuration["DB_URI"]);
 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
