@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MiraiAnimation.Model;
 using MiraiAnimation.Model.Services;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Transactions;
@@ -32,9 +33,14 @@ namespace MiraiAnimation.Pages {
 
         }
 
-        public async Task<IActionResult> OnPostLogin(string username, string password) {
-            User user;
-            if((user = _usersCollection.GetByProperty(username)) != null && _passHasher.VerifyHashedPassword(user, user.password, password) == PasswordVerificationResult.Success) {
+        public async Task<IActionResult> OnPostLogin([Required] string Username, [Required] string Password) {
+
+			if (!ModelState.IsValid) {
+				return Page();
+			}
+
+			User user;
+            if((user = _usersCollection.GetByProperty(Username)) != null && _passHasher.VerifyHashedPassword(user, user.password, Password) == PasswordVerificationResult.Success) {
                 List<Claim> claims = [
                     new Claim("id", user.id.ToString()),
                     new Claim(ClaimTypes.Name, user.username),
@@ -58,6 +64,11 @@ namespace MiraiAnimation.Pages {
         }
 
         public async Task<IActionResult> OnPostSignup(User user) {
+
+            if (!ModelState.IsValid) {
+                return Page();
+            }
+
             user.tipo = "utente";
             user.password = _passHasher.HashPassword(user, user.password);
             user.datiVerifica.token = RandomNumberGenerator.GetHexString(16);
