@@ -11,7 +11,7 @@ namespace MiraiAnimation.Model {
 		public DateTime dataUscita { get; set; }
 		public byte[]? immagine { get; set; }
 		[BsonElement("recensioni")]
-		public List<Recensione> recensioni { get; set; }
+		public List<Recensione> recensioni { get; set; } = new List<Recensione>();
 
 	}
 

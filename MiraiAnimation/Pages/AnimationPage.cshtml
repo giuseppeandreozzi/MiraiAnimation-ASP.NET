@@ -2,6 +2,7 @@
 @model MiraiAnimation.Pages.AnimationPageModel
 @section CSS {
 	<link rel="stylesheet" href="/css/animationPage.css" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 }
 @{
 	@using MiraiAnimation.Model
@@ -31,7 +32,7 @@
 	<div id="rec" class="row">
 		<div class="col">
 			<span id="insertrec">Inserisci una recensione</span> <br />
-			@if (false) { <!-- da modificare successivamente -->
+			@if (User.Claims.Count() > 0) {
 				<span>Voto</span>
 				<ul id="star">
 					<li class="fa fa-star fa-2x" id="1star" onclick="checkStar(this.id)"></li>
@@ -40,12 +41,13 @@
 					<li class="fa fa-star fa-2x" id="4star" onclick="checkStar(this.id)"></li>
 					<li class="fa fa-star fa-2x" id="5star" onclick="checkStar(this.id)"></li>
 				</ul>
-				<form name="reviewForm" action="/aggiungiRecensione" method="POST">
-					<input type="hidden" name="codiceAnimazione" value="@Model.Animation.id">
-					<input type="hidden" name="voto" value="">
+				<form name="reviewForm" asp-page-handler="AddReview">
+					<input type="hidden" name="Id" value="@Model.Animation.id">
+					<input type="hidden" name="Voto" id="voto">
 					<span id="comment">Commento</span> <br />
-					<textarea name="commento" maxlength="255" rows="4" cols="30"></textarea><br /> <br />
+					<textarea name="Commento" maxlength="255" rows="4" cols="30"></textarea><br /> <br />
 					<input type="submit" value="Inserisci"> <br />
+					<div asp-validation-summary="All"></div>
 				</form>
 				<span class="error" id="errorComment"></span><br />
 			} else {

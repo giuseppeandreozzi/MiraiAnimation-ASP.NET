@@ -1,7 +1,9 @@
 function checkStar(id){
 	var subId = id.substring(1);
 
-	$("input[name=voto]").val(id[0]);
+	let votoInput = document.getElementById("voto");
+	votoInput.value = id[0];
+	//$("input[name=Voto]").val(id[0]);
 	for (var i = 1; i <= 5; i++){
 		if (i <= id[0])
 			$("#" + i + subId).css("color", "orange");
