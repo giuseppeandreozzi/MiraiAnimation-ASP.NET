@@ -21,12 +21,12 @@
 
 				@if(User.Claims.Count() > 0) {
 					<form name="shopForm" asp-page-handler="Add" onsubmit="return checkForm(this)">
-						<input type="hidden" name="id" value="@bd.id">
-						<input type="hidden" name="prezzo" value="@bd.prezzo">
-						<label>
-							Quantità
-							<input type="number" name="quantità" min="1">
-						</label><br />
+						<input type="hidden" asp-for="Input.Id" value="@bd.id">
+						<input type="hidden" asp-for="Input.Prezzo" value="@bd.prezzo">
+						<label asp-for="Input.Quantità"> Quantità </label>
+						<input type="number" asp-for="Input.Quantità" min="1">
+						<br />
+						<span class="error" asp-validation-for="Input.Quantità"></span>
 						<input type="submit" value="Acquista" class="submit">
 					</form>
 					<span class="error" id=""></span>

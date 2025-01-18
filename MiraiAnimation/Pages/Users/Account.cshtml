@@ -10,28 +10,31 @@
 
 <div id="container" class="container h-100 pt-4 mt-4 bg-dark">
 	<form id="form" name="formUser" asp-page="Users/Account" onsubmit="return checkForm()">
-		<label for="nome">Nome:</label><br />
-		<input id="nome" type="text" name="nome" value="@User.FindFirst("Nome").Value" required> <br />
-		<span class="error" id="errorName"></span><br />
+		<label asp-for="user.nome">Nome:</label><br />
+		<input id="nome" type="text" asp-for="user.nome" value="@User.FindFirst("Nome").Value" required> <br />
+		<span asp-validation-for="user.nome" class="error" id="errorName"></span><br />
 
-		<label for="cognome">Cognome:</label><br />
-		<input type="text" id="cognome" name="cognome" value="@User.FindFirst("Cognome").Value" required> <br />
-		<span class="error" id="errorSurname"></span><br />
+		<label asp-for="user.cognome">Cognome:</label><br />
+		<input type="text" id="cognome" asp-for="user.cognome" value="@User.FindFirst("Cognome").Value" required> <br />
+		<span class="error" id="errorSurname" asp-validation-for="user.cognome"></span><br />
 
 		<h5>Indirizzo:</h5>
-		<label for="via">Via:</label><br />
-		<input type="text" id="indirizzo" name="indirizzo.via" value="@indirizzo[0].Substring(0, indirizzo[0].Length - 1)" required> <br />
-		<label for="via">Città:</label><br />
-		<input type="text" id="indirizzo" name="indirizzo.città" value="@indirizzo[1].Substring(0, indirizzo[1].Length - 1)" required> <br />
-		<label for="via">CAP:</label><br />
-		<input type="text" id="indirizzo" name="indirizzo.CAP" value="@indirizzo[2]" required> <br />
-		<span class="error" id="errorAddress"></span><br />
+		<label asp-for="user.indirizzo.via">Via:</label><br />
+		<input type="text" id="indirizzo" asp-for="user.indirizzo.via" value="@indirizzo[0].Substring(0, indirizzo[0].Length - 1)" required> <br />
+		<span class="error" id="errorAddress" asp-validation-for="user.indirizzo.via"></span><br />
+		<label asp-for="user.indirizzo.città">Città:</label><br />
+		<input type="text" id="indirizzo" asp-for="user.indirizzo.città" value="@indirizzo[1].Substring(0, indirizzo[1].Length - 1)" required> <br />
+		<span class="error" id="errorAddress" asp-validation-for="user.indirizzo.città"></span><br />
+		<label asp-for="user.indirizzo.CAP">CAP:</label><br />
+		<input type="text" id="indirizzo" asp-for="user.indirizzo.CAP" value="@indirizzo[2]" required> <br />
+		<span class="error" id="errorAddress" asp-validation-for="user.indirizzo.CAP"></span><br />
 
-		<label for="dataNascita">Data di Nascita:</label><br />
-		<input type="text" id="dataNascita" name="dataNascita" value="@User.FindFirst("DataNascita").Value" required> <br /><br />
-		<span class="error" id="errorBirthDate"></span><br />
+		<label asp-for="user.dataNascita">Data di Nascita:</label><br />
+		<input type="text" id="dataNascita" asp-for="user.dataNascita" value="@User.FindFirst("DataNascita").Value" required> <br /><br />
+		<span class="error" id="errorBirthDate" asp-validation-for="user.dataNascita"></span><br />
 
 		<input type="submit"> <input type="reset"> <br /><br />
+
 	</form>
 
 </div>

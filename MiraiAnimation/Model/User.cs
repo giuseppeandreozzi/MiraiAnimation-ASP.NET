@@ -44,6 +44,7 @@ namespace MiraiAnimation.Model {
 		[MaxLength(20)]
 		public string città { get; set; }
 		[Required]
+		[Length(5, 5)]
 		public string CAP { get; set; }
 		[Required]
 		[MaxLength(30)]
