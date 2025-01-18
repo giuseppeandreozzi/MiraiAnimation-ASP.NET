@@ -25,16 +25,16 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item mx-auto">
-						<a class="nav-link" asp-page="Index">Home</a>
+						<a class="nav-link" asp-page="/Index">Home</a>
 					</li>
 					<li class="nav-item mx-auto">
-						<a class="nav-link" asp-page="Animation">Animazioni</a>
+						<a class="nav-link" asp-page="/Animation">Animazioni</a>
 					</li>
 					<li class="nav-item mx-auto">
-						<a class="nav-link" asp-page="ListaStaff">Personale</a>
+						<a class="nav-link" asp-page="/ListaStaff">Personale</a>
 					</li>
 					<li class="nav-item mx-auto">
-						<a class="nav-link" asp-page="Shop">Negozio</a>
+						<a class="nav-link" asp-page="/Shop">Negozio</a>
 					</li>
 				</ul>
 
@@ -74,13 +74,13 @@
 								Sezione Utente
 							</a>
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-								<a class="dropdown-item" asp-page="Users/Cart">Carrello</a>
+								<a class="dropdown-item" asp-page="/Users/Cart">Carrello</a>
 								<a class="dropdown-item" asp-page="/Users/Orders">Ordini effettuati</a>
 								<!--  <div class="dropdown-divider"></div>-->
-								<a class="dropdown-item" asp-page="Users/Account">Account</a>
+								<a class="dropdown-item" asp-page="/Users/Account">Account</a>
 								<a class="dropdown-item" data-toggle="modal" data-target="#resetModal">Reimposta password</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" asp-page="Index" asp-page-handler="Logout">Log out</a>
+								<a class="dropdown-item" asp-page="/Index" asp-page-handler="Logout">Log out</a>
 							</div>
 						</li>
 					
@@ -114,7 +114,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<form name="signForm" asp-page="Index" asp-page-handler="Signup" onsubmit="return checkSignForm()">
+					<form name="signForm" asp-page="/Index" asp-page-handler="Signup" onsubmit="return checkSignForm()">
 						<div class="modal-body mt-3">
 							<div class="form-group">
 								<input name="email" required>
@@ -189,7 +189,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-						<a asp-page="Index" asp-page-handler="ResetPassword" class="btn btn-primary">Si</a>
+						<a asp-page="/Index" asp-page-handler="ResetPassword" class="btn btn-primary">Si</a>
 					</div>
 				</div>
 			</div>
