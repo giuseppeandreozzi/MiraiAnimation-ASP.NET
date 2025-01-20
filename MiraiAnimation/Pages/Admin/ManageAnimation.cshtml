@@ -19,7 +19,7 @@
 
 			<div id="edit" class="collapse show" aria-labelledby="headingEdit" data-parent="#accordionAnim">
 				<div class="card-body bg-dark">
-					<form id="animation" asp-page-handler="Edit" method="post" enctype="multipart/form-data" onsubmit="return checkInsertEditForm(this)">
+					<form id="animation" asp-page-handler="Edit" enctype="multipart/form-data" onsubmit="return checkInsertEditForm(this)">
 						<span>Animazione:</span>
 						<select name="codiceAnimazione" onchange="loadAnim()">
 							<option value="" disabled selected>Seleziona un'opzione</option>
@@ -29,20 +29,24 @@
 						</select>
 
 						<div id="anim" class="pt-2">
-							<input type="hidden" name="id" value="">
-							<label>Titolo: <input type="text" name="titolo" required></label> <br />
-							<span class="error errorNome"></span>
+							<input type="hidden" asp-for="Anim.id" value="">
+							<label asp-for="Anim.titolo">Titolo:</label> 
+							<input id="titoloEdit" type="text" asp-for="Anim.titolo" required> <br />
+							<span class="error errorNome" asp-validation-for="Anim.titolo"></span><br />
 
-							<label>Genere: <input type="text" name="genere" required> </label> <br />
-							<span class="error errorGenere"></span>
+							<label asp-for="Anim.genere">Genere: </label> 
+							<input type="text" id="genereEdit" asp-for="Anim.genere" required> <br />
+							<span class="error errorGenere" asp-validation-for="Anim.genere"></span><br />
 
 							<span>Tipo:</span>
-							<input type="radio" name="tipo" value="serie" required> Serie
-							<input type="radio" name="tipo" value="film" required> Film
+							<input type="radio" id="serieEdit" asp-for="Anim.tipo" value="serie" required> Serie
+							<input type="radio" id="filmEdit" asp-for="Anim.tipo" value="film" required> Film <br />
+							<span class="error errorUscita" asp-validation-for="Anim.tipo"></span>
 							<br />
 
-							<label>Data d'uscita: <input type="text" name="dataUscita"></label>
-							<span class="error errorUscita"></span>
+							<label asp-for="Anim.dataUscita">Data d'uscita:</label>
+							<input type="text" id="dataEdit" asp-for="Anim.dataUscita"><br />
+							<span class="error errorUscita" asp-validation-for="Anim.dataUscita"></span>
 							<br />
 
 							<label>Immagine: <input type="file" name="immagine"></label>
@@ -67,19 +71,23 @@
 			<div id="insert" class="collapse" aria-labelledby="headingInsert" data-parent="#accordionAnim">
 				<div class="card-body bg-dark">
 					<form id="addAnim" asp-page-handler="Add" enctype="multipart/form-data" onsubmit="return checkInsertEditForm(this)">
-						<label>Titolo: <input type="text" name="titolo" required></label> <br />
-						<span class="error errorNome"></span>
+						<label asp-for="Anim.titolo">Titolo:</label>
+						<input id="titoloAdd" type="text" asp-for="Anim.titolo" required> <br />
+						<span class="error errorNome" asp-validation-for="Anim.titolo"></span><br />
 
-						<label>Genere: <input type="text" name="genere" required> </label> <br />
-						<span class="error errorGenere"></span>
+						<label asp-for="Anim.genere">Genere: </label>
+						<input type="text" id="genereAdd" asp-for="Anim.genere" required> <br />
+						<span class="error errorGenere" asp-validation-for="Anim.genere"></span><br />
 
 						<span>Tipo:</span>
-						<input type="radio" name="tipo" value="serie" required> Serie
-						<input type="radio" name="tipo" value="film" required> Film
+						<input type="radio" id="serieAdd" asp-for="Anim.tipo" value="serie" required> Serie
+						<input type="radio" id="filmAdd" asp-for="Anim.tipo" value="film" required> Film<br />
+						<span class="error errorUscita" asp-validation-for="Anim.tipo"></span>
 						<br />
 
-						<label>Data d'uscita: <input type="text" name="dataUscita"></label>
-						<span class="error errorUscita"></span>
+						<label asp-for="Anim.dataUscita">Data d'uscita:</label>
+						<input type="text" id="dataAdd" asp-for="Anim.dataUscita"><br />
+						<span class="error errorUscita" asp-validation-for="Anim.dataUscita"></span>
 						<br />
 
 						<label>Immagine: <input type="file" name="immagine"></label>

@@ -12,6 +12,8 @@ namespace MiraiAnimation.Pages.Admin {
 
 		public IEnumerable<Animation> Animations { get; set; }
 		public IEnumerable<Staff> Staffs { get; set; }
+		[BindProperty]
+		public Animation Anim {  get; set; }
 
 		public ManageAnimationModel(IDbService<Animation, string> animCollection, IDbService<Staff, string> staffCollection) {
             _animCollection = animCollection;
@@ -23,28 +25,43 @@ namespace MiraiAnimation.Pages.Admin {
             Staffs = _staffCollection.GetAll();
         }
 
-        public async Task<IActionResult> OnPostEdit(Animation anim, IFormFile immagine) {
+        public async Task<IActionResult> OnPostEdit(IFormFile immagine) {
+			if(!ModelState.IsValid) {
+				Animations = _animCollection.GetAll();
+				Staffs = _staffCollection.GetAll();
+				return Page();
+			}
+
+			Animation animation = _animCollection.GetById(Anim.id.ToString());
             if (immagine != null) {
                 using(MemoryStream memoryStream =  new MemoryStream()) {
                     await immagine.CopyToAsync(memoryStream);
-					anim.immagine = memoryStream.ToArray();
+					Anim.immagine = memoryStream.ToArray();
 				}
-            }
+			} else {
+				Anim.immagine = animation.immagine;
+			}
 
-            _animCollection.EditElement(anim);
+            _animCollection.EditElement(Anim);
             return new RedirectToPageResult("/Admin/ManageAnimation");
 
         }
 
-		public async Task<IActionResult> OnPostAdd(Animation anim, IFormFile immagine) {
+		public async Task<IActionResult> OnPostAdd(IFormFile immagine) {
+			if (!ModelState.IsValid) {
+				Animations = _animCollection.GetAll();
+				Staffs = _staffCollection.GetAll();
+				return Page();
+			}
+
 			if (immagine != null) {
 				using (MemoryStream memoryStream = new MemoryStream()) {
 					await immagine.CopyToAsync(memoryStream);
-					anim.immagine = memoryStream.ToArray();
+					Anim.immagine = memoryStream.ToArray();
 				}
 			}
 
-			_animCollection.AddElement(anim);
+			_animCollection.AddElement(Anim);
 			return new RedirectToPageResult("/Admin/ManageAnimation");
 
 		}

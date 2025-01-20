@@ -14,9 +14,9 @@ function loadStaff() {
 		contentType: false,
 		processData: false,
 		success: function(result){
-			$("#editStaff input[name=anniServizio]").val(result.anniServizio);
-			$("#editStaff input[name=nome]").val(result.nome);
-			$("#editStaff input[name=cognome]").val(result.cognome);
+			$("#editStaff input[name='Staff.anniServizio']").val(result.anniServizio);
+			$("#editStaff input[name='Staff.nome']").val(result.nome);
+			$("#editStaff input[name='Staff.cognome']").val(result.cognome);
 			if (result.ruolo == "Direttore") {
 				$("#editStaff input[value=Direttore]").click();
 			} else if (result.ruolo == "Staff tecnico") {

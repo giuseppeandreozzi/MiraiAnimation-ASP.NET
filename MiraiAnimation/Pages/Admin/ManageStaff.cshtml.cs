@@ -11,6 +11,9 @@ namespace MiraiAnimation.Pages.Admin {
 
         public IEnumerable<Staff> Staffs { get; set; }
 
+        [BindProperty]
+        public Staff Staff { get; set; }
+
         public ManageStaffModel(IDbService<Staff, string> staffService) {
             _staffService = staffService;
         }
@@ -19,14 +22,24 @@ namespace MiraiAnimation.Pages.Admin {
             Staffs = _staffService.GetAll();
         }
 
-        public IActionResult OnPostEdit(Staff staff) {
-            _staffService.EditElement(staff);
+        public IActionResult OnPostEdit() {
+            if(!ModelState.IsValid) {
+                Staffs = _staffService.GetAll();
+                return Page();
+            }
+
+            _staffService.EditElement(Staff);
 
             return new RedirectToPageResult("/Admin/ManageStaff");
         }
 
-        public IActionResult OnPostAdd(Staff staff) {
-            _staffService.AddElement(staff);
+        public IActionResult OnPostAdd() {
+            if (!ModelState.IsValid) {
+                Staffs = _staffService.GetAll();
+                return Page();
+            }
+
+            _staffService.AddElement(Staff);
 
             return new RedirectToPageResult("/Admin/ManageStaff");
         }

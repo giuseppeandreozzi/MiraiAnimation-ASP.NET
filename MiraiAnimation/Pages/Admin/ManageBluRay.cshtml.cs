@@ -12,8 +12,10 @@ namespace MiraiAnimation.Pages.Admin {
 
         public IEnumerable<BluRay> Bds { get; set; }
         public IEnumerable<Animation> Animations { get; set; }
+        [BindProperty]
+        public BluRay Bd {  get; set; }
 
-        public ManageBluRayModel(IDbService<BluRay, string> bdService, IDbService<Animation, string> animService) {
+		public ManageBluRayModel(IDbService<BluRay, string> bdService, IDbService<Animation, string> animService) {
             _bdService = bdService;
             _animService = animService;
         }
@@ -22,12 +24,18 @@ namespace MiraiAnimation.Pages.Admin {
             Animations = _animService.GetAll();
         }
 
-        public async Task<IActionResult> OnPostEdit(BluRay bd, IFormFile immagine) {
-            BluRay _bd = _bdService.GetById(bd.id.ToString());
+        public async Task<IActionResult> OnPostEdit(IFormFile immagine) {
+            if (!ModelState.IsValid) {
+				Bds = _bdService.GetAll();
+				Animations = _animService.GetAll();
+				return Page();
+            }
+
+            BluRay _bd = _bdService.GetById(Bd.id.ToString());
 
             _bd.anim = null;
-            _bd.prezzo = bd.prezzo;
-            _bd.descrizione = bd.descrizione;
+            _bd.prezzo = Bd.prezzo;
+            _bd.descrizione = Bd.descrizione;
 
             if(immagine != null) {
                 using (MemoryStream ms = new MemoryStream()) {
@@ -41,15 +49,21 @@ namespace MiraiAnimation.Pages.Admin {
             return new RedirectToPageResult("/Admin/ManageBluRay");
         }
 
-        public async Task<IActionResult> OnPostAdd(BluRay bd, IFormFile immagine) {
-            if (immagine != null) {
+        public async Task<IActionResult> OnPostAdd(IFormFile immagine) {
+			if (!ModelState.IsValid) {
+				Bds = _bdService.GetAll();
+				Animations = _animService.GetAll();
+				return Page();
+			}
+
+			if (immagine != null) {
                 using (MemoryStream ms = new MemoryStream()) {
                     await immagine.CopyToAsync(ms);
-                    bd.immagine = ms.ToArray();
+                    Bd.immagine = ms.ToArray();
                 }
             }
 
-            _bdService.AddElement(bd);
+            _bdService.AddElement(Bd);
 
             return new RedirectToPageResult("/Admin/ManageBluRay");
         }

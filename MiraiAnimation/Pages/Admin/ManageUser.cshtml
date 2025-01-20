@@ -31,20 +31,47 @@
 						<span class="error" id="errorUserEdit"></span>
 
 						<div class="py-2" id="userDiv">
-							Username: <input type="text" name="username"><br />
-							Password: <input type="password" name="password"><br />
-							E-mail: <input type="text" name="email"><br />
-							Nome: <input type="text" name="nome"><br />
-							Cognome: <input type="text" name="cognome"><br />
-							Data di Nascita: <input type="text" name="dataNascita"><br />
-							Indirizzo:<br />
-							Città: <input type="text" name="indirizzo.città"><br />
-							Via: <input type="text" name="indirizzo.via"><br />
-							CAP: <input type="text" name="indirizzo.CAP"><br />
+							<label asp-for="User.username">Username:</label>
+							<input type="text" asp-for="User.username"><br />
+							<span class="error" asp-validation-for="User.username"></span><br/>
+
+							<label asp-for="User.password">Password:</label> 
+							<input type="password" asp-for="User.password"><br />
+							<span class="error" asp-validation-for="User.password"></span>
+
+							<label asp-for="User.email">E-mail:</label>
+							<input type="text" asp-for="User.email"><br />
+							<span class="error" asp-validation-for="User.email"></span><br/>
+
+							<label asp-for="User.nome">Nome:</label>
+							<input type="text" asp-for="User.nome"><br />
+							<span class="error" asp-validation-for="User.nome"></span><br/>
+
+							<label asp-for="User.cognome">Cognome:</label>
+							<input type="text" asp-for="User.cognome"><br />
+							<span class="error" asp-validation-for="User.cognome"></span><br />
+
+							<label asp-for="User.dataNascita">Data di nascita:</label>
+							<input type="text" asp-for="User.dataNascita"><br />
+							<span class="error" asp-validation-for="User.dataNascita"></span><br />
+
+							<label>Indirizzo:</label><br />
+							<label asp-for="User.indirizzo.città">Città:</label>
+							<input type="text" asp-for="User.indirizzo.città"><br />
+							<span class="error" asp-validation-for="User.indirizzo.città"></span><br />
+
+							<label asp-for="User.indirizzo.via">Via:</label>
+							<input type="text" asp-for="User.indirizzo.via"><br />
+							<span class="error" asp-validation-for="User.indirizzo.via"></span><br />
+
+							<label asp-for="User.indirizzo.CAP">CAP:</label>
+							<input type="text" asp-for="User.indirizzo.CAP"><br />
+							<span class="error" asp-validation-for="User.indirizzo.CAP"></span><br />
+
 							<span id="tipo" class="bold">Tipo:</span> <br />
-							<input type="radio" name="tipo" value="utente"> Utente <br />
-							<input type="radio" name="tipo" value="admin"> Amministratore <br />
-							<span class="error" id="errorTipo"></span>
+							<input type="radio" asp-for="User.tipo" value="utente"> Utente <br />
+							<input type="radio" asp-for="User.tipo" value="admin"> Amministratore <br />
+							<span class="error" id="errorTipo" asp-validation-for="User.tipo"></span>
 
 
 							<input type="submit" value="Conferma"> <br />

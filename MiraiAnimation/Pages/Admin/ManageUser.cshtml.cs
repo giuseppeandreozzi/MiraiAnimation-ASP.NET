@@ -12,6 +12,8 @@ namespace MiraiAnimation.Pages.Admin {
 
         public IEnumerable<User> Users { get; set; }
 
+        [BindProperty]
+        public User User { get; set; }
         public ManageUserModel(IDbService<User, string> userCollection) {
 			_userCollection = userCollection;
         }
@@ -20,25 +22,30 @@ namespace MiraiAnimation.Pages.Admin {
             Users = _userCollection.GetAll();
         }
 
-        public IActionResult OnPostEdit(User user) {
-            User _user = _userCollection.GetById(user.id.ToString());
+        public IActionResult OnPostEdit() {
+            if (!ModelState.IsValid) {
+                Users = _userCollection.GetAll();
+                return Page();
+            }
 
-            if(user.password != null) {
+            User _user = _userCollection.GetById(User.id.ToString());
+
+            if(User.password != null) {
 				PasswordHasher<User> hasher = new PasswordHasher<User>();
 
-                user.password = hasher.HashPassword(user, user.password);
+                User.password = hasher.HashPassword(User, User.password);
 			} else {
-                user.password = _user.password;
+                User.password = _user.password;
 
 			}
 
-            user.indirizzo.id = _user.indirizzo.id;
-            user.verificato = _user.verificato;
-            user.carrello = _user.carrello;
-            user.ordini = _user.ordini;
-            user.datiVerifica = _user.datiVerifica;
+            User.indirizzo.id = _user.indirizzo.id;
+            User.verificato = _user.verificato;
+            User.carrello = _user.carrello;
+            User.ordini = _user.ordini;
+            User.datiVerifica = _user.datiVerifica;
 
-            _userCollection.EditElement(user);
+            _userCollection.EditElement(User);
 
             return new RedirectToPageResult("/Admin/ManageUser");
         }

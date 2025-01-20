@@ -15,10 +15,10 @@ function loadAnim(){
         contentType: false,
         processData: false,
 		success: function (result) {
-			$("#anim input[name=id]").val(result.id);
-			$("#anim input[name=titolo]").val(result.anim.titolo);
-			$("#anim input[name=genere]").val(result.anim.genere);
-			$("#anim input[name=dataUscita]").val(result.anim.dataUscita);
+			$("#anim input[name='Anim.id']").val(result.id);
+			$("#anim input[name='Anim.titolo']").val(result.anim.titolo);
+			$("#anim input[name='Anim.genere']").val(result.anim.genere);
+			$("#anim input[name='Anim.dataUscita']").val(result.anim.dataUscita);
 			if (result.anim.tipo == "serie")
 				$("#anim input[value=serie]").click();
 			else

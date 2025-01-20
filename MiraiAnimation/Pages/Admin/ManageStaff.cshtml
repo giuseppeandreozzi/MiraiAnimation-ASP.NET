@@ -31,16 +31,23 @@
                         </select> <br />
 
                         <div class="py-2" id="staff">
-                            <label>Nome: <input type="text" name="nome" required></label> <br />
-                            <label>Cognome: <input type="text" name="cognome" required></label> <br />
-                            <label>Anni servizio: <input type="number" class="anni" name="anniServizio" min="0" required></label> <br />
-                            <span class="error" id="errorAnniEdit"></span>
+                            <label asp-for="Staff.nome">Nome:</label> 
+                            <input id="nomeEdit" type="text" asp-for="Staff.nome" required> <br />
+                            <span class="error" asp-validation-for="Staff.nome"></span>
+
+                            <label asp-for="Staff.cognome">Cognome:</label>
+                            <input id="cognomeEdit" type="text" asp-for="Staff.cognome" required> <br />
+                            <span class="error" asp-validation-for="Staff.nome"></span>
+
+                            <label asp-for="Staff.anniServizio">Anni servizio:</label>
+                            <input id="anniEdit" type="number" class="anni" asp-for="Staff.anniServizio" min="0" required></label> <br />
+                            <span class="error" id="errorAnniEdit" asp-validation-for="Staff.anniServizio"></span>
 
                             Ruolo: 	<br />
-                            <input type="radio" name="ruolo" value="Direttore" required> Direttore <br />
-                            <input type="radio" name="ruolo" value="Staff tecnico" required> Staff Tecnico <br />
-                            <input type="radio" name="ruolo" value="Regista" required> Regista <br />
-                            <span class="error" id="errorRuoloEdit"></span>
+                            <input id="direttoreEdit" type="radio" asp-for="Staff.ruolo" value="Direttore" required> Direttore <br />
+                            <input id="tecnicoEdit" type="radio" asp-for="Staff.ruolo" value="Staff tecnico" required> Staff Tecnico <br />
+                            <input id="registaEdit" type="radio" asp-for="Staff.ruolo" value="Regista" required> Regista <br />
+                            <span class="error" id="errorRuoloEdit" asp-validation-for="Staff.ruolo"></span>
 
                             <input class="mt-2" type="submit"> <br />
                         </div>
@@ -63,20 +70,23 @@
                 <div class="card-body bg-dark">
                     <form name="insertStaff" id="insertStaff" asp-page-handler="Add" onsubmit="return checkInsertForm()">
 
-                        <label>Nome: <input type="text" name="nome" required></label> <br />
-                        <span class="error" id="errorNome"></span>
+                        <label asp-for="Staff.nome">Nome:</label>
+                        <input id="nomeAdd" type="text" asp-for="Staff.nome" required> <br />
+                        <span class="error" asp-validation-for="Staff.nome"></span>
 
-                        <label>Cognome: <input type="text" name="cognome" required></label> <br />
-                        <span class="error" id="errorCognome"></span>
+                        <label asp-for="Staff.cognome">Cognome:</label>
+                        <input id="cognomeAdd" type="text" asp-for="Staff.cognome" required> <br />
+                        <span class="error" asp-validation-for="Staff.nome"></span>
 
-                        <label>Anni servizio: <input type="number" class="anni" name="anniServizio" required></label> <br />
-                        <span class="error" id="errorAnniInsert"></span>
+                        <label asp-for="Staff.anniServizio">Anni servizio:</label>
+                        <input id="anniAdd" type="number" class="anni" asp-for="Staff.anniServizio" min="0" required></label> <br />
+                        <span class="error" id="errorAnniAdd" asp-validation-for="Staff.anniServizio"></span>
 
                         Ruolo: 	<br />
-                        <input type="radio" name="ruolo" value="Direttore" required> Direttore <br />
-                        <input type="radio" name="ruolo" value="Staff tecnico" required> Staff Tecnico <br />
-                        <input type="radio" name="ruolo" value="Regista" required> Regista <br />
-                        <span class="error" id="errorRuoloInsert"></span>
+                        <input id="direttoreAdd" type="radio" asp-for="Staff.ruolo" value="Direttore" required> Direttore <br />
+                        <input id="tecnicoAdd" type="radio" asp-for="Staff.ruolo" value="Staff tecnico" required> Staff Tecnico <br />
+                        <input id="registaAdd" type="radio" asp-for="Staff.ruolo" value="Regista" required> Regista <br />
+                        <span class="error" id="errorRuoloAdd" asp-validation-for="Staff.ruolo"></span>
 
                         <input class="mt-2" type="submit"> <br />
                     </form>

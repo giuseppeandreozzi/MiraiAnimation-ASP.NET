@@ -29,14 +29,14 @@
                         </select>
 
                         <div id="cofanetto">
-                            <label>
-                                Descrizione:<br />
-                                <textarea name="descrizione" rows="5" cols="30" maxlength="100" required></textarea>
-                            </label> <br />
-                            <span class="error errorContenuto"></span>
+                            <label asp-for="Bd.descrizione"> Descrizione: </label><br />
+                            <textarea id="descrizioneEdit" asp-for="Bd.descrizione" rows="5" cols="30" maxlength="255" required></textarea>
+                             <br />
+                            <span class="error errorContenuto" asp-validation-for="Bd.descrizione"></span><br/>
 
-                            <label>Prezzo: <input type="number" class="numb" name="prezzo" min="1" required></label> <br />
-                            <span class="error errorPrezzo"></span>
+                            <label asp-for="Bd.prezzo">Prezzo:</label>
+                            <input id="prezzoEdit" type="number" class="numb" asp-for="Bd.prezzo" min="1" max="999" required> <br />
+                            <span class="error errorPrezzo" asp-validation-for="Bd.prezzo"></span><br/>
 
                             <label>Immagine: <input type="file" name="immagine"></label> <br />
                             <input type="submit"> <br />
@@ -66,14 +66,14 @@
                             }
                         </select> <br />
 
-                        <label>
-                            Descrizione: <br />
-                            <textarea name="descrizione" rows="5" cols="30" maxlength="100" required></textarea>
-                        </label> <br />
-                        <span class="error errorContenuto"></span>
+                        <label asp-for="Bd.descrizione"> Descrizione: </label><br />
+                        <textarea id="descrizioneEdit" asp-for="Bd.descrizione" rows="5" cols="30" maxlength="255" required></textarea>
+                        <br />
+                        <span class="error errorContenuto" asp-validation-for="Bd.descrizione"></span><br />
 
-                        <label>Prezzo: <input type="number" class="numb" name="prezzo" min="1" required></label> <br />
-                        <span class="error errorPrezzo"></span>
+                        <label asp-for="Bd.prezzo">Prezzo:</label>
+                        <input id="prezzoEdit" type="number" class="numb" asp-for="Bd.prezzo" min="1" max="999" required> <br />
+                        <span class="error errorPrezzo" asp-validation-for="Bd.prezzo"></span><br />
 
                         <label>Immagine: <input type="file" name="immagine"></label> <br />
 
