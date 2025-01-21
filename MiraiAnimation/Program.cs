@@ -32,7 +32,7 @@ builder.Services.AddScoped<PasswordHasher<User>>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => {
-        options.AccessDeniedPath = "/Forbidden";
+        options.AccessDeniedPath = "/Error/401";
         options.LoginPath = "/";
     });
 
@@ -50,11 +50,14 @@ builder.Services.AddHttpClient<IMailjetClient, MailjetClient>(client => {
 
 var app = builder.Build();
 
+
+
 if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/Error/{0}", "?handler=Status");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCookiePolicy();
